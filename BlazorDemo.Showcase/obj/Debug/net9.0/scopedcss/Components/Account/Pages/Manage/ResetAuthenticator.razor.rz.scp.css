@@ -1,0 +1,30 @@
+.block-content[b-zramiuun64] {
+    border-radius: 0.5rem;
+    flex-grow: 0;
+    margin: auto;
+    max-width: 30rem;
+    padding: 1.5rem;
+    width: auto;
+}
+
+.title[b-zramiuun64] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-bottom: 0.625rem;
+}
+
+    .title.title-secondary[b-zramiuun64] {
+        padding-top: 0.313rem;
+        padding-bottom: 0;
+        color: var(--DS-color-content-neutral-subdued-rest);
+    }
+
+    .title .title-content-text-secondary[b-zramiuun64] {
+        font-size: 1.25rem;
+        line-height: 1.5rem;
+    }
+
+[b-zramiuun64] .w-100 {
+    width: 100%;
+}

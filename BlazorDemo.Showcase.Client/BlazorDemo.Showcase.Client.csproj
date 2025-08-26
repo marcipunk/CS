@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <EnableDefaultItems>False</EnableDefaultItems>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
+    <StaticWebAssetProjectMode>Default</StaticWebAssetProjectMode>
+    <RootNamespace>BlazorDemo.Showcase.Client</RootNamespace>
+    <WasmBuildNative>False</WasmBuildNative>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="DevExtreme.AspNet.Data" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" />
+    <PackageReference Include="System.Drawing.Common" />
+    <PackageReference Include="SkiaSharp.Views.Blazor" />
+    <PackageReference Include="SkiaSharp.HarfBuzz" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="DevExpress.Blazor" VersionOverride="25.1.4" />
+    <PackageReference Include="DevExpress.Drawing.Skia" VersionOverride="25.1.4" />
+    
+    
+    
+    
+    
+    
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="**\*.cs" Exclude="obj\**\*.cs" />
+    <Content Include="Components\**\*.razor" />
+    <Content Include="Components\**\*.css" />
+    <Content Include="wwwroot\**\*.*" />
+  </ItemGroup>
+</Project>

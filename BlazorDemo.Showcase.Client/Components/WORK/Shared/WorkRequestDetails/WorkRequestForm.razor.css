@@ -1,0 +1,90 @@
+.small-size .contact-form {
+    --contacts-caption-font-size: var(--DS-font-size-body-1-strong);
+    --contacts-caption-font-weight: var(--DS-font-weight-body-1-strong);
+    --contacts-caption-line-height: var(--DS-line-height-body-1-strong);
+}
+
+.medium-size .contact-form {
+    --contacts-caption-font-size: var(--DS-font-size-subtitle-2);
+    --contacts-caption-font-weight: var(--DS-font-weight-subtitle-2);
+    --contacts-caption-line-height: var(--DS-line-height-subtitle-2);
+}
+
+.large-size .contact-form {
+    --contacts-caption-font-size: var(--DS-font-size-subtitle-1);
+    --contacts-caption-font-weight: var(--DS-font-weight-subtitle-1);
+    --contacts-caption-line-height: var(--DS-line-height-subtitle-1);
+}
+
+::deep .toolbar {
+    margin-bottom: 1rem;
+}
+
+::deep .contact-item {
+    height: 2em;
+    display: flex;
+    align-items: center;
+}
+
+::deep .user-avatar-item {
+    margin: auto;
+}
+
+.user-avatar {
+    display: flex;
+    border: 1px solid var(--DS-color-border-neutral-default-rest);
+    border-radius: 50%;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+}
+
+.small-size .user-avatar {
+    max-width: 8.75rem;
+    max-height: 8.75rem;
+}
+
+.medium-size .user-avatar {
+    max-width: 10rem;
+    max-height: 10rem;
+}
+
+.large-size .user-avatar {
+    max-width: 11.25rem;
+    max-height: 11.25rem;
+}
+
+.user-avatar img {
+    max-width: 100%;
+}
+
+::deep .caption {
+    font-weight: 600;
+}
+
+::deep .contacts-caption {
+    font-size: var(--contacts-caption-font-size);
+    line-height: var(--contacts-caption-line-height);
+    font-weight: var(--contacts-caption-font-weight);
+    margin-bottom: 1rem;
+}
+
+::deep .edit-icon {
+    mask-image: url("images/icons/edit.svg");
+}
+
+::deep .w-100 {
+    width: 100%;
+}
+
+.separator {
+    margin: 0;
+    color: inherit;
+    border: 0;
+    border-top: var(--DS-sizing-10) solid;
+    opacity: var(--DS-opacity-25);
+}
+
+::deep .text-danger {
+    color: var(--DS-color-surface-danger-default-rest);
+}

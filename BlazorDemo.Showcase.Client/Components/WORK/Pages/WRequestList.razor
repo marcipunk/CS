@@ -1,0 +1,209 @@
+@page "/WRequestList"
+
+
+@using System.Text.RegularExpressions;
+@using BlazorDemo.Showcase.Models;
+@using BlazorDemo.Showcase.Client.Components.WORK;
+@using BlazorDemo.Showcase.Services.DataProviders;
+@using Microsoft.AspNetCore.Authorization;
+@using DevExpress.Blazor;
+@using DevExpress.Blazor.Internal;
+
+
+@inject WorkRequestDataProvider DataProvider
+
+@implements IDisposable
+
+<h3>Hello World</h3>
+<div class="content-root">
+    <TargetContent>
+        <div class="h-100">
+            <DxLoadingPanel Visible="@(!IsDataLoaded)" IsContentBlocked="true" IsContentVisible="false"
+                IndicatorVisible="true" IndicatorAreaVisible="true" ZIndex="101" Text="Loading...">
+                <DxGrid @ref="Grid" Data="Data" CssClass="contact-list" SearchText="@SearchText"
+                    EditMode="GridEditMode.PopupEditForm" PopupEditFormCssClass="pw-800" SkeletonRowsEnabled="true"
+                    ColumnResizeMode="GridColumnResizeMode.NextColumn"
+                    FilterMenuButtonDisplayMode="GridFilterMenuButtonDisplayMode.Always" TextWrapEnabled="false"
+                    FocusedRowEnabled="true" ShowAllRows="true" VirtualScrollingEnabled="true"
+                    HighlightRowOnHover="true">
+                    <Columns>
+                        <DxGridSelectionColumn Width="1.5em" />
+
+                        <DxGridDataColumn FieldName="CustomerName" Width="30%"/>
+                        <DxGridDataColumn FieldName="Status" Caption="Állapot" Width="15%">
+                            <CellDisplayTemplate>
+                                <WorkRequestStatus Value="@(context.Value as string)" />
+                            </CellDisplayTemplate>
+                        </DxGridDataColumn>
+                        <DxGridDataColumn FieldName="Subject" Caption="Tárgy" Width="40%" />
+                        <DxGridDataColumn FieldName="CreatedDate" Width="15%" MinWidth="50" />
+                    </Columns>
+                    @* <EditFormTemplate Context="EditFormContext">
+                                @{
+                                    var contact = (WorkRequest)EditFormContext.EditModel;
+                                }
+                                <DxFormLayout CssClass="w-100">
+                                    <DxFormLayoutItem Caption="Name:" ColSpanMd="6">
+                                        @EditFormContext.GetEditor("Name")
+                                    </DxFormLayoutItem>
+                                    <DxFormLayoutItem Caption="Company:" ColSpanMd="6">
+                                        @EditFormContext.GetEditor("Company")
+                                    </DxFormLayoutItem>
+                                    <DxFormLayoutItem Caption="Position:" ColSpanMd="6">
+                                        @EditFormContext.GetEditor("Position")
+                                    </DxFormLayoutItem>
+                                    <DxFormLayoutItem Caption="Status:" ColSpanMd="6">
+                                        <DxComboBox @bind-Value="@contact.Status" Data="@Statuses" />
+                                    </DxFormLayoutItem>
+                                    <DxFormLayoutItem Caption="Assigned To:" ColSpanMd="6">
+                                        @EditFormContext.GetEditor("AssignedTo")
+                                    </DxFormLayoutItem>
+                                    <DxFormLayoutItem Caption="Phone:" ColSpanMd="6">
+                                        <DxMaskedInput @bind-Value="@contact.Phone" Mask="+1(000)000-0000" />
+                                    </DxFormLayoutItem>
+                                    <DxFormLayoutItem Caption="Email:" ColSpanMd="6">
+                                        <DxMaskedInput @bind-Value="@contact.Email"
+                                                       Mask="@(@"(\w|[.-])+@(\w|-)+\.(\w|-){2,4}")"
+                                                       MaskMode="MaskMode.RegEx" />
+                                    </DxFormLayoutItem>
+                                </DxFormLayout>
+                            </EditFormTemplate> *@
+                </DxGrid>
+            </DxLoadingPanel>
+        </div>
+
+    </TargetContent>
+</div>
+@code {
+    CancellationTokenSource disposalTokenSource = new CancellationTokenSource();
+    WorkRequest workRequest = new WorkRequest();
+
+    [CascadingParameter(Name = "ParentSizeMode")]
+    SizeMode SizeMode { get; set; }
+    List<WorkRequest>? Data { get; set; }
+    bool IsDataLoaded { get; set; }
+    bool IsWorkRequestPanelOpen { get; set; }
+    bool IsWorkRequestPanelPinned { get; set; }
+    bool IsActiveWorkRequestLoading { get; set; }
+    DrawerMode DrawerMode => IsWorkRequestPanelPinned ? DrawerMode.Shrink : DrawerMode.Overlap;
+    WorkRequestDetail? ActiveWorkRequest { get; set; }
+
+    IGrid? Grid { get; set; }
+    string? SearchText { get; set; }
+    string StatusFilterValue { get; set; } = "All";
+    // string[] Statuses { get; } = new[] { "Salaried", "Commission", "Terminated" };
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadGridDataAsync();
+        await base.OnInitializedAsync();
+    }
+
+    async Task LoadGridDataAsync()
+    {
+        IsDataLoaded = false;
+        Data = await DataProvider.GetAsync(
+        tenantId: 1,
+        customerId: 30,
+        statusId: 0,
+        createdBefore: new DateTime(2025, 12, 31),
+        createdAfter: new DateTime(2025, 1, 1),
+        pageNumber: 1,
+        pageSize: 100, // changed from 1 to 100
+        cancellationToken: disposalTokenSource.Token
+        );
+        IsDataLoaded = true;
+    }
+
+
+    void OnDataChanged(List<WorkRequest> data) => Data = data;
+
+    void OnPinClick() => IsWorkRequestPanelPinned = !IsWorkRequestPanelPinned;
+
+    void OnCloseClick()
+    {
+        IsWorkRequestPanelOpen = false;
+        IsWorkRequestPanelPinned = false;
+    }
+
+    string GetPinButtonIconCss() => $"{(IsWorkRequestPanelPinned ? "pinned-icon" : "unpinned-icon")} medium-icon";
+
+    @* void OnActiveWorkRequestChanged(WorkRequestDetail contact) {
+        var index = Data!.FindIndex(c => c.Id == ActiveWorkRequest!.Id);
+        if(index >= 0) {
+            var newData = new List<WorkRequest>(Data);
+            newData[index] = new WorkRrequest {
+                Id = contact.Id,
+                Company = contact.Company,
+                AssignedTo = contact.Manager,
+                Email = contact.Email,
+                Name = contact.Name,
+                Phone = contact.Phone,
+                Position = contact.Position,
+                Status = contact.Status
+            };
+            Data = newData;
+        } 
+    }*@
+
+    Task OnAddWorkRequestClick() => Grid!.StartEditNewRowAsync();
+
+    void OnColumnChooserItemClick(ToolbarItemClickEventArgs e) => Grid!.ShowColumnChooser();
+
+    Task ExportAllDataToExcel() => Grid!.ExportToXlsxAsync("WorkRequests");
+
+    Task ExportSelectedRowsToExcel() => Grid!.ExportToXlsxAsync("Selected WorkRequests", new GridXlExportOptions
+    {
+        ExportSelectedRowsOnly = true
+    });
+
+    Task ExportAllDataToCsv() => Grid!.ExportToCsvAsync("WorkRequests");
+
+    Task ExportSelectedRowsDataToCsv() => Grid!.ExportToCsvAsync("Selected WorkRequests", new GridCsvExportOptions
+    {
+        ExportSelectedRowsOnly = true
+    });
+
+    Task ExportAllDataToPdf() => Grid!.ExportToPdfAsync("WorkRequests");
+
+    Task ExportSelectedRowsDataToPdf() => Grid!.ExportToPdfAsync("Selected WorkRequests", new GridPdfExportOptions
+    {
+        ExportSelectedRowsOnly = true
+    });
+
+    void FilterByStatus(ToolbarItemClickEventArgs item)
+    {
+        StatusFilterValue = item.Info.Text;
+        Grid!.FilterBy("Status", GridFilterRowOperatorType.Equal, StatusFilterValue != "All" ? StatusFilterValue : null);
+    }
+
+    @* async void OnRowClick(GridRowClickEventArgs args) {
+        if(!IsWorkRequestPanelOpen) {
+            IsWorkRequestPanelOpen = true;
+            ActiveWorkRequest = null;
+        }
+        IsActiveWorkRequestLoading = true;
+        var workRequest = (WorkRequest)Grid!.GetDataItem(args.VisibleIndex);
+        ActiveWorkRequest = await DataProvider.GetAsync(tenantId: workRequest.TenantId, customerId: contactworkRequest.CustomerId, statusId: workRequest.StatusId, createdBefore: workRequest.CreatedBefore, createdAfter: workRequest.CreatedAfter, pageNumber: 1, pageSize: 1, cancellationToken: disposalTokenSource.Token)
+            .ContinueWith(t => t.Result.FirstOrDefault(), disposalTokenSource.Token);
+        IsActiveWorkRequestLoading = false;
+        StateHasChanged();
+    }  *@
+
+    string GetWorkRequestPanelWidth() => SizeMode switch
+    {
+        SizeMode.Small => "20.25rem",
+        SizeMode.Large => "27rem",
+        _ => "23.625rem",
+    };
+
+    // Icon + color + tooltip mapping for StatusId
+
+
+
+    void IDisposable.Dispose()
+    {
+        disposalTokenSource.Cancel();
+        disposalTokenSource.Dispose();
+    }
+}

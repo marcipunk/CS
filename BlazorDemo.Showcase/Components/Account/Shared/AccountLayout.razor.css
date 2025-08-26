@@ -1,0 +1,31 @@
+html, body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    height: 100%;
+}
+
+main {
+    height: 100%;
+}
+
+.demo-title {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+    .demo-title .demo-title-text {
+        font-family: var(--DS-font-family-sans-serif);
+        font-size: var(--DS-font-size-large-title);
+        font-weight: var(--DS-font-weight-large-title);
+        line-height: var(--DS-line-height-large-title);
+        letter-spacing: var(--DS-letter-spacing-large-title);
+        color: var(--DS-color-content-neutral-default-rest);
+        margin-bottom: 8vh;
+        margin-top: 10vh;
+    }
+
+::deep .w-100 {
+    width: 100%;
+}

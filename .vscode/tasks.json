@@ -1,0 +1,28 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "dotnet run (no-hot-reload)",
+            "type": "shell",
+            "command": "dotnet",
+            "args": [
+                "run",
+                "--no-hot-reload",
+                "--project",
+                "BlazorDemo.Showcase/BlazorDemo.Showcase.csproj"
+            ],
+            "options": {
+                "env": {
+                    "ASPNETCORE_ENVIRONMENT": "Development",
+                    "DOTNET_ENVIRONMENT": "Development",
+                    "ASPNETCORE_URLS": "http://localhost:5000;https://localhost:5001"
+                }
+            },
+            "problemMatcher": ["$msCompile"],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+.block-content[b-fhdw2n1r4a] {
+    border-radius: 0.5rem;
+    flex-grow: 0;
+    margin: auto;
+    max-width: 30rem;
+    padding: 1.5rem;
+    width: auto;
+}
+
+[b-fhdw2n1r4a] .w-100 {
+    width: 100%;
+}
+
+[b-fhdw2n1r4a] .text-danger {
+    color: var(--DS-color-surface-danger-default-rest);
+}

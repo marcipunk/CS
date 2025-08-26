@@ -1,0 +1,19 @@
+.alert[b-yya4j2n8no] {
+    position: relative;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+
+    .alert.alert-danger[b-yya4j2n8no] {
+        color: var(--DS-color-content-danger-default-rest);
+        background-color: var(--DS-color-surface-danger-subdued-rest);
+        border-color: var(--DS-color-border-danger-default-rest);
+    }
+
+    .alert.alert-success[b-yya4j2n8no] {
+        color: var(--DS-color-content-success-warning-rest);
+        background-color: var(--DS-color-surface-success-subdued-rest);
+        border-color: var(--DS-color-border-success-default-rest);
+    }

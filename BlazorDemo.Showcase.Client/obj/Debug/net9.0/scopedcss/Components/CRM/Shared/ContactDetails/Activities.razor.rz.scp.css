@@ -1,0 +1,36 @@
+[b-5fn5p8sy84] .activities {
+    --dxbl-list-box-border-width: 0;
+    width: 100%;
+    height: 100%;
+}
+
+[b-5fn5p8sy84] .activity {
+    font-family: var(--DS-font-family-sans-serif);
+    font-weight: 400;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    border-left: 0.25rem solid var(--DS-primary-90);
+    box-shadow: 0 0.125rem 0.25rem 0 #00000024, 0 0 0.125rem 0 #0000001F;
+}
+
+[b-5fn5p8sy84] .name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+[b-5fn5p8sy84] .info {
+    opacity: 0.8;
+}
+
+[b-5fn5p8sy84] .grid-item {
+    display: flex;
+    align-items: center;
+}
+
+.w-100[b-5fn5p8sy84] {
+    width: 100%;
+}
+
+.h-100[b-5fn5p8sy84] {
+    height: 100%;
+}

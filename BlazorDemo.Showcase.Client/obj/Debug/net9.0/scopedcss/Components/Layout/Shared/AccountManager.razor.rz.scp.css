@@ -1,0 +1,46 @@
+.user-info[b-3pbhyzy98u] {
+    width: max-content;
+}
+
+.display-name[b-3pbhyzy98u] {
+    font-size: 1.3em;
+    font-weight: 500;
+}
+
+.email[b-3pbhyzy98u] {
+    color: var(--DS-color-content-neutral-subdued-rest);
+}
+
+.container[b-3pbhyzy98u] {
+    width: 100%;
+    height: 100%;
+}
+
+[b-3pbhyzy98u].small-size .user-avatar {
+    width: 3.5rem;
+    height: 3.5rem;
+}
+
+[b-3pbhyzy98u].medium-size .user-avatar {
+    width: 4rem;
+    height: 4rem;
+}
+
+[b-3pbhyzy98u].large-size .user-avatar {
+    width: 4.5rem;
+    height: 4.5rem;
+}
+
+.separator[b-3pbhyzy98u] {
+    margin: 0;
+    color: inherit;
+    border: 0;
+    border-top: var(--DS-sizing-10) solid;
+    opacity: var(--DS-opacity-25);
+}
+
+[b-3pbhyzy98u] .button {
+    padding-left: 0;
+    padding-right: 0;
+}
+

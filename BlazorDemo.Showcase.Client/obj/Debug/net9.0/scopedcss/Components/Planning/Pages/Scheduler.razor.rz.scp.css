@@ -1,0 +1,36 @@
+[b-r322hgbxy7] .normal-view {
+    height: inherit;
+}
+
+[b-r322hgbxy7] .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow-wrap: break-word;
+    background-color: var(--DS-color-surface-neutral-default-rest);
+    background-clip: border-box;
+    border: var(--DS-border-radius-10) solid var(--DS-color-border-neutral-default-rest);
+    border-radius: 0.25rem;
+}
+
+.compact-view[b-r322hgbxy7] {
+    display: flex;
+    height: 100%;
+    justify-items: start;
+}
+
+[b-r322hgbxy7] .menu-button {
+    height: fit-content;
+    position: relative;
+    top: 1em;
+    left: 0.25em;
+}
+
+[b-r322hgbxy7] .settings {
+    padding: 1em;
+}
+
+.h-100[b-r322hgbxy7] {
+    height: 100%;
+}

@@ -1,0 +1,18 @@
+﻿@namespace BlazorDemo.Showcase.Client.Components.WORK
+
+@if(!string.IsNullOrEmpty(Value)) {
+    <span class="@(string.Join(' ', "status", GetStatusClass()))">@Value?.ToString()</span>
+}
+
+@code {
+    [Parameter]
+    public string? Value { get; set; }
+
+    string GetStatusClass() => Value switch {
+        "Elfogadva" => "status-salaried",
+        "Bejelentve" => "status-commission",
+        "Törölt" or "Elutasított" => "status-terminated",
+        "Folyamatban" => "status-inprogress",
+        _ => string.Empty
+    };
+}

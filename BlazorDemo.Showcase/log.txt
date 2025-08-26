@@ -1,0 +1,3 @@
+  Determining projects to restore...
+C:\Program Files\dotnet\sdk\9.0.304\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.ImportWorkloads.targets(38,5): error NETSDK1147: To build this project, the following workloads must be installed: wasm-tools [C:\Users\Public\Documents\DevExpress Demos 25.1\Components\Blazor\BlazorDemo.Showcase\CS\BlazorDemo.Showcase.Client\BlazorDemo.Showcase.Client.csproj]
+C:\Program Files\dotnet\sdk\9.0.304\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.ImportWorkloads.targets(38,5): error NETSDK1147: To install these workloads, run the following command: dotnet workload restore [C:\Users\Public\Documents\DevExpress Demos 25.1\Components\Blazor\BlazorDemo.Showcase\CS\BlazorDemo.Showcase.Client\BlazorDemo.Showcase.Client.csproj]

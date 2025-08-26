@@ -1,0 +1,112 @@
+.content-root[b-gjjo8f7g0k] {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.toolbar[b-gjjo8f7g0k] {
+    padding: 0.5rem 0.5rem;
+    margin-bottom: 1rem;
+}
+
+    .toolbar .custom-item[b-gjjo8f7g0k] {
+        display: flex;
+        align-items: center;
+        margin: 0 0.5rem;
+    }
+
+.contact-list-root[b-gjjo8f7g0k] {
+    flex-grow: 1;
+    height: 90%;
+}
+
+.card[b-gjjo8f7g0k] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow-wrap: break-word;
+    background-color: var(--DS-color-surface-neutral-default-rest);
+    background-clip: border-box;
+    border: var(--DS-border-radius-10) solid var(--DS-color-border-neutral-default-rest);
+    border-radius: 0.25rem;
+}
+
+[b-gjjo8f7g0k] .w-100 {
+    width: 100%;
+}
+
+.h-100[b-gjjo8f7g0k] {
+    height: 100%;
+}
+
+[b-gjjo8f7g0k] .contact-list {
+    max-height: 100%;
+    border-radius: 0.25rem;
+}
+
+[b-gjjo8f7g0k] .add-icon {
+    mask-image: url("images/icons/add.svg");
+}
+
+[b-gjjo8f7g0k] .column-chooser-icon {
+    mask-image: url("images/icons/column-chooser.svg");
+}
+
+[b-gjjo8f7g0k] .export-icon {
+    mask-image: url("images/icons/arrow-export-up.svg");
+}
+
+[b-gjjo8f7g0k] .search-textbox-item {
+    max-width: 12.5rem;
+}
+
+[b-gjjo8f7g0k] .pinned-icon {
+    mask-image: url("images/icons/lock-closed.svg");
+}
+
+[b-gjjo8f7g0k] .unpinned-icon {
+    mask-image: url("images/icons/lock-open.svg");
+}
+
+[b-gjjo8f7g0k] .close-icon {
+    mask-image: url("images/icons/dismiss.svg");
+}
+
+[b-gjjo8f7g0k] .standalone-btn {
+    --dxbl-btn-padding-x: 0.5em;
+}
+
+[b-gjjo8f7g0k] .contact-list-drawer {
+    --dxbl-drawer-panel-body-padding-x: 1.5rem;
+    --dxbl-drawer-panel-header-padding-x: 1.5rem;
+    --dxbl-drawer-separator-border-style: none;
+}
+
+.contact-details-header[b-gjjo8f7g0k] {
+    display: flex;
+    flex-shrink: 0;
+    justify-content: space-between;
+}
+
+.contact-details-body[b-gjjo8f7g0k] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.small-size .contact-details[b-gjjo8f7g0k] {
+    width: 17.25rem;
+}
+
+.medium-size .contact-details[b-gjjo8f7g0k] {
+    width: 20.625rem;
+}
+
+.large-size .contact-details[b-gjjo8f7g0k] {
+    width: 24rem;
+}
+
+.sub-item[b-gjjo8f7g0k] {
+    font-size: 0.8em;
+}

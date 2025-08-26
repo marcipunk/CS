@@ -1,0 +1,83 @@
+﻿@namespace BlazorDemo.Showcase.Components.Scheduler
+@using BlazorDemo.Showcase.Models
+
+<div class="h-100">
+    <DxScheduler @ref=scheduler
+                 @bind-ActiveViewType="@viewType"
+                 StartDate="@StartDate"
+                 StartDateChanged="@StartDateChanged"
+                 DataStorage="@DataStorage"
+                 VisibleResourcesDataSource="VisibleResources"
+                 AllowCreateAppointment="true"
+                 ResourceNavigatorVisible="false"
+                 CssClass="scheduler">
+        <DxSchedulerDayView DayCount="1"></DxSchedulerDayView>
+        <DxSchedulerWorkWeekView />
+        <DxSchedulerMonthView MonthCount="1" />
+        <DxSchedulerTimelineView Duration="@TimeSpan.FromHours(48)" CellMinWidth="80">
+            <Scales>
+                <DxSchedulerTimeScale Unit="@SchedulerTimeScaleUnit.Day" UnitCount="1"></DxSchedulerTimeScale>
+                <DxSchedulerTimeScale Unit="@SchedulerTimeScaleUnit.Hour" UnitCount="2"></DxSchedulerTimeScale>
+            </Scales>
+        </DxSchedulerTimelineView>
+    </DxScheduler>
+</div>
+
+@code {
+    DxScheduler? scheduler;
+    SchedulerViewType viewType = SchedulerViewType.WorkWeek;
+
+    [Parameter]
+    public List<WorkTaskDetail>? Data { get; set; }
+    [Parameter]
+    public DateTime StartDate { get; set; } = DateTime.Today;
+    [Parameter]
+    public EventCallback<DateTime> StartDateChanged { get; set; }
+    [Parameter]
+    public IEnumerable<Resource>? VisibleResources { get; set; }
+
+    DxSchedulerDataStorage? DataStorage { get; set; }
+
+    public override Task SetParametersAsync(ParameterView parameters) {
+        if(parameters.TryGetValue(nameof(Data), out List<WorkTaskDetail>? data) && data != null && data != Data)
+            DataStorage = CreateDataStorage(data);
+        return base.SetParametersAsync(parameters);
+    }
+
+    DxSchedulerDataStorage CreateDataStorage(List<WorkTaskDetail> data) {
+        return new DxSchedulerDataStorage() {
+            AppointmentsSource = Appointments.Create(data),
+            AppointmentMappings = new DxSchedulerAppointmentMappings() {
+                Type = "AppointmentType",
+                Start = "StartDate",
+                End = "EndDate",
+                Subject = "Caption",
+                ResourceId = "ResourceId",
+                StatusId = "Status",
+                LabelId = "LabelId",
+                Location = "Location",
+                Description = "Description"
+            },
+            ResourcesSource = Resources.GetResources(),
+            ResourceMappings = new DxSchedulerResourceMappings() {
+                Id = "Id",
+                Caption = "Name",
+                BackgroundCssClass = "BackgroundCss",
+                TextCssClass = "TextCss"
+            },
+            AppointmentStatusSource = Statuses.GetStatuses(),
+            AppointmentStatusMappings = new DxSchedulerAppointmentStatusMappings() {
+                Id = "Id",
+                Caption = "Caption",
+                Color = "Color"
+            }
+        };
+    }
+
+    public async Task CreateAppointmentAsync() {
+        var timeOfDay = DateTime.Now.TimeOfDay;
+        var startDate = StartDate.Add(timeOfDay);
+        var appointment = await scheduler!.CreateAppointmentAsync(startDate, startDate.AddMinutes(30), false, null);
+        await scheduler!.ShowAppointmentEditFormAsync(false, appointment);
+    }
+}

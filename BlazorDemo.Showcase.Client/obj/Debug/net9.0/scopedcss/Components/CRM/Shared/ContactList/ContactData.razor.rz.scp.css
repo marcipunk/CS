@@ -1,0 +1,55 @@
+.small-size .contact-data[b-klpo4kwujy] {
+    --accordion-item-margin-top: 0.5rem;
+}
+
+.medium-size .contact-data[b-klpo4kwujy] {
+    --accordion-item-margin-top: 0.75rem;
+}
+
+.large-size .contact-data[b-klpo4kwujy] {
+    --accordion-item-margin-top: 1rem;
+}
+
+[b-klpo4kwujy] .opportunity {
+    box-shadow: 0 0.125rem 0.25rem 0 #00000024, 0 0 0.125rem 0 #0000001F;
+    border-radius: 0.25rem;
+    padding: 0.5em 1em;
+}
+
+    .opportunity .title[b-klpo4kwujy] {
+        font-weight: 600;
+    }
+
+[b-klpo4kwujy] .list-box {
+    --dxbl-list-box-border-width: 0;
+    --dxbl-list-box-item-padding-x: 0;
+    flex-shrink: 0;
+    height: unset;
+}
+
+[b-klpo4kwujy] .accordion-item {
+    margin-top: var(--accordion-item-margin-top);
+}
+
+[b-klpo4kwujy] .activity {
+    font-family: var(--DS-font-family-sans-serif);
+    font-weight: 400;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    border-left: 0.25rem solid var(--DS-primary-90);
+    box-shadow: 0 0.125rem 0.25rem 0 #00000024, 0 0 0.125rem 0 #0000001F;
+}
+
+[b-klpo4kwujy] .name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+[b-klpo4kwujy] .info {
+    opacity: 0.7;
+}
+
+[b-klpo4kwujy] .grid-item {
+    display: flex;
+    align-items: center;
+}

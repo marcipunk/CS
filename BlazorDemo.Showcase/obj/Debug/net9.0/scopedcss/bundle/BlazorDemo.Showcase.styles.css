@@ -1,0 +1,1694 @@
+@import 'BlazorDemo.Showcase.Client.pts1yuugrj.bundle.scp.css';
+
+/* _content/BlazorDemo.Showcase/Components/Account/Pages/AccessDenied.razor.rz.scp.css */
+.main-content[b-gyg2tbeskz] {
+    display: flex;
+    height: 100%;
+}
+
+.block-content[b-gyg2tbeskz] {
+    border-radius: 0.5rem;
+    flex-grow: 0;
+    margin: auto;
+    max-width: 30rem;
+    padding: 1.5rem;
+    width: auto;
+}
+
+.title[b-gyg2tbeskz] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 0.625rem;
+    color: var(--DS-color-content-neutral-default-rest);
+}
+
+    .title .title-header-text[b-gyg2tbeskz] {
+        font-family: var(--DS-font-family-title-2);
+        font-size: var(--DS-font-size-title-2);
+        font-weight: var(--DS-font-weight-title-2);
+        line-height: var(--DS-line-height-title-2);
+        letter-spacing: var(--DS-letter-spacing-title-2);
+    }
+
+    .title .title-content-text[b-gyg2tbeskz] {
+        font-family: var(--DS-font-family-body-2);
+        font-size: var(--DS-font-size-body-2);
+        font-weight: var(--DS-font-weight-body-2);
+        line-height: var(--DS-line-height-body-2);
+        letter-spacing: var(--DS-letter-spacing-body-2);
+    }
+
+.card[b-gyg2tbeskz] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow-wrap: break-word;
+    background-color: var(--DS-color-surface-neutral-default-rest);
+    background-clip: border-box;
+    border: var(--DS-border-radius-10) solid var(--DS-color-border-neutral-default-rest);
+    border-radius: 0.25rem;
+}
+
+.text-danger[b-gyg2tbeskz] {
+    color: var(--DS-color-surface-danger-default-rest);
+}
+/* _content/BlazorDemo.Showcase/Components/Account/Pages/ConfirmEmail.razor.rz.scp.css */
+.main-content[b-swg090ivka] {
+    display: flex;
+    height: 100%;
+}
+
+.block-content[b-swg090ivka] {
+    border-radius: 0.5rem;
+    flex-grow: 0;
+    margin: auto;
+    max-width: 30rem;
+    padding: 1.5rem;
+    width: auto;
+}
+
+.title[b-swg090ivka] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 0.625rem;
+    color: var(--DS-color-content-neutral-default-rest);
+}
+
+    .title .title-header-text[b-swg090ivka] {
+        font-family: var(--DS-font-family-title-2);
+        font-size: var(--DS-font-size-title-2);
+        font-weight: var(--DS-font-weight-title-2);
+        line-height: var(--DS-line-height-title-2);
+        letter-spacing: var(--DS-letter-spacing-title-2);
+    }
+
+    .title .title-content-text[b-swg090ivka] {
+        font-family: var(--DS-font-family-body-2);
+        font-size: var(--DS-font-size-body-2);
+        font-weight: var(--DS-font-weight-body-2);
+        line-height: var(--DS-line-height-body-2);
+        letter-spacing: var(--DS-letter-spacing-body-2);
+    }
+
+.card[b-swg090ivka] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow-wrap: break-word;
+    background-color: var(--DS-color-surface-neutral-default-rest);
+    background-clip: border-box;
+    border: var(--DS-border-radius-10) solid var(--DS-color-border-neutral-default-rest);
+    border-radius: 0.25rem;
+}
+/* _content/BlazorDemo.Showcase/Components/Account/Pages/ConfirmEmailChange.razor.rz.scp.css */
+.main-content[b-7e3rt8qc90] {
+    display: flex;
+    height: 100%;
+}
+
+.block-content[b-7e3rt8qc90] {
+    border-radius: 0.5rem;
+    flex-grow: 0;
+    margin: auto;
+    max-width: 30rem;
+    padding: 1.5rem;
+    width: auto;
+}
+
+.title[b-7e3rt8qc90] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 0.625rem;
+    color: var(--DS-color-content-neutral-default-rest);
+}
+
+    .title .title-header-text[b-7e3rt8qc90] {
+        font-family: var(--DS-font-family-title-2);
+        font-size: var(--DS-font-size-title-2);
+        font-weight: var(--DS-font-weight-title-2);
+        line-height: var(--DS-line-height-title-2);
+        letter-spacing: var(--DS-letter-spacing-title-2);
+    }
+
+    .title .title-content-text[b-7e3rt8qc90] {
+        font-family: var(--DS-font-family-body-2);
+        font-size: var(--DS-font-size-body-2);
+        font-weight: var(--DS-font-weight-body-2);
+        line-height: var(--DS-line-height-body-2);
+        letter-spacing: var(--DS-letter-spacing-body-2);
+    }
+
+.card[b-7e3rt8qc90] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow-wrap: break-word;
+    background-color: var(--DS-color-surface-neutral-default-rest);
+    background-clip: border-box;
+    border: var(--DS-border-radius-10) solid var(--DS-color-border-neutral-default-rest);
+    border-radius: 0.25rem;
+}
+/* _content/BlazorDemo.Showcase/Components/Account/Pages/ExternalLogin.razor.rz.scp.css */
+.main-content[b-ewwmf498sf] {
+    display: flex;
+    height: 100%;
+}
+
+.block-content[b-ewwmf498sf] {
+    border-radius: 0.5rem;
+    flex-grow: 0;
+    margin: auto;
+    max-width: 30rem;
+    padding: 1.5rem;
+    width: auto;
+}
+
+.title[b-ewwmf498sf] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-bottom: 0.625rem;
+}
+
+    .title .title-header-text[b-ewwmf498sf] {
+        font-size: 2rem;
+        line-height: 2.5rem;
+        font-weight: 600;
+        letter-spacing: 0;
+    }
+
+    .title .title-content-text[b-ewwmf498sf] {
+        font-size: 1.5rem;
+        line-height: 2rem;
+        font-weight: 400;
+        letter-spacing: 0;
+    }
+
+.card[b-ewwmf498sf] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow-wrap: break-word;
+    background-color: var(--DS-color-surface-neutral-default-rest);
+    background-clip: border-box;
+    border: var(--DS-border-radius-10) solid var(--DS-color-border-neutral-default-rest);
+    border-radius: 0.25rem;
+}
+
+[b-ewwmf498sf] .w-100 {
+    width: 100%;
+}
+
+[b-ewwmf498sf] .text-danger {
+    color: var(--DS-color-surface-danger-default-rest);
+}
+/* _content/BlazorDemo.Showcase/Components/Account/Pages/ForgotPassword.razor.rz.scp.css */
+.main-content[b-fmeldybs35] {
+    display: flex;
+    height: 100%;
+}
+
+.block-content[b-fmeldybs35] {
+    border-radius: 0.5rem;
+    flex-grow: 0;
+    margin: auto;
+    max-width: 30rem;
+    padding: 1.5rem;
+    width: auto;
+}
+
+.title[b-fmeldybs35] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 0.625rem;
+}
+
+    .title .title-text[b-fmeldybs35] {
+        font-family: var(--DS-font-family-title-2);
+        font-size: var(--DS-font-size-title-2);
+        font-weight: var(--DS-font-weight-title-2);
+        line-height: var(--DS-line-height-title-2);
+        letter-spacing: var(--DS-letter-spacing-title-2);
+        color: var(--DS-color-content-neutral-default-rest);
+    }
+
+.links-container[b-fmeldybs35] {
+    display: flex;
+    gap: 0.25rem;
+    justify-content: center;
+    align-items: center;
+    padding-top: 0.75rem;
+}
+
+.card[b-fmeldybs35] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow-wrap: break-word;
+    background-color: var(--DS-color-surface-neutral-default-rest);
+    background-clip: border-box;
+    border: var(--DS-border-radius-10) solid var(--DS-color-border-neutral-default-rest);
+    border-radius: 0.25rem;
+}
+
+[b-fmeldybs35] a {
+    color: var(--DS-color-content-primary-default-rest);
+    text-decoration: underline;
+}
+
+[b-fmeldybs35] .w-100 {
+    width: 100%;
+}
+
+[b-fmeldybs35] .text-danger {
+    color: var(--DS-color-surface-danger-default-rest);
+}
+/* _content/BlazorDemo.Showcase/Components/Account/Pages/ForgotPasswordConfirmation.razor.rz.scp.css */
+.main-content[b-4d6u8298dv] {
+    display: flex;
+    height: 100%;
+}
+
+.block-content[b-4d6u8298dv] {
+    border-radius: 0.5rem;
+    flex-grow: 0;
+    margin: auto;
+    padding: 1.5rem;
+    width: auto;
+}
+
+.title[b-4d6u8298dv] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 0.625rem;
+    color: var(--DS-color-content-neutral-default-rest);
+}
+
+    .title .title-header-text[b-4d6u8298dv] {
+        font-family: var(--DS-font-family-title-2);
+        font-size: var(--DS-font-size-title-2);
+        font-weight: var(--DS-font-weight-title-2);
+        line-height: var(--DS-line-height-title-2);
+        letter-spacing: var(--DS-letter-spacing-title-2);
+    }
+
+    .title .title-content-text[b-4d6u8298dv] {
+        font-family: var(--DS-font-family-body-2);
+        font-size: var(--DS-font-size-body-2);
+        font-weight: var(--DS-font-weight-body-2);
+        line-height: var(--DS-line-height-body-2);
+        letter-spacing: var(--DS-letter-spacing-body-2);
+    }
+
+.card[b-4d6u8298dv] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow-wrap: break-word;
+    background-color: var(--DS-color-surface-neutral-default-rest);
+    background-clip: border-box;
+    border: var(--DS-border-radius-10) solid var(--DS-color-border-neutral-default-rest);
+    border-radius: 0.25rem;
+}
+/* _content/BlazorDemo.Showcase/Components/Account/Pages/InvalidPasswordReset.razor.rz.scp.css */
+.main-content[b-43n2dy8tnr] {
+    display: flex;
+    height: 100%;
+}
+
+.block-content[b-43n2dy8tnr] {
+    border-radius: 0.5rem;
+    flex-grow: 0;
+    margin: auto;
+    padding: 1.5rem;
+    width: auto;
+}
+
+.title[b-43n2dy8tnr] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 0.625rem;
+    color: var(--DS-color-content-neutral-default-rest);
+}
+
+    .title .title-header-text[b-43n2dy8tnr] {
+        font-family: var(--DS-font-family-title-2);
+        font-size: var(--DS-font-size-title-2);
+        font-weight: var(--DS-font-weight-title-2);
+        line-height: var(--DS-line-height-title-2);
+        letter-spacing: var(--DS-letter-spacing-title-2);
+    }
+
+    .title .title-content-text[b-43n2dy8tnr] {
+        font-family: var(--DS-font-family-body-2);
+        font-size: var(--DS-font-size-body-2);
+        font-weight: var(--DS-font-weight-body-2);
+        line-height: var(--DS-line-height-body-2);
+        letter-spacing: var(--DS-letter-spacing-body-2);
+    }
+
+.card[b-43n2dy8tnr] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow-wrap: break-word;
+    background-color: var(--DS-color-surface-neutral-default-rest);
+    background-clip: border-box;
+    border: var(--DS-border-radius-10) solid var(--DS-color-border-neutral-default-rest);
+    border-radius: 0.25rem;
+}
+/* _content/BlazorDemo.Showcase/Components/Account/Pages/InvalidUser.razor.rz.scp.css */
+.main-content[b-25a7ne29gk] {
+    display: flex;
+    height: 100%;
+}
+
+.block-content[b-25a7ne29gk] {
+    border-radius: 0.5rem;
+    flex-grow: 0;
+    margin: auto;
+    padding: 1.5rem;
+    width: auto;
+}
+
+.title[b-25a7ne29gk] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 0.625rem;
+    color: var(--DS-color-content-neutral-default-rest);
+}
+
+    .title .title-header-text[b-25a7ne29gk] {
+        font-family: var(--DS-font-family-title-2);
+        font-size: var(--DS-font-size-title-2);
+        font-weight: var(--DS-font-weight-title-2);
+        line-height: var(--DS-line-height-title-2);
+        letter-spacing: var(--DS-letter-spacing-title-2);
+    }
+
+.card[b-25a7ne29gk] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow-wrap: break-word;
+    background-color: var(--DS-color-surface-neutral-default-rest);
+    background-clip: border-box;
+    border: var(--DS-border-radius-10) solid var(--DS-color-border-neutral-default-rest);
+    border-radius: 0.25rem;
+}
+/* _content/BlazorDemo.Showcase/Components/Account/Pages/Lockout.razor.rz.scp.css */
+.main-content[b-57cl8mf22t] {
+    display: flex;
+    height: 100%;
+}
+
+.block-content[b-57cl8mf22t] {
+    border-radius: 0.5rem;
+    flex-grow: 0;
+    margin: auto;
+    padding: 1.5rem;
+    width: auto;
+}
+
+.title[b-57cl8mf22t] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 0.625rem;
+    color: var(--DS-color-content-neutral-default-rest);
+}
+
+    .title .title-header-text[b-57cl8mf22t] {
+        font-family: var(--DS-font-family-title-2);
+        font-size: var(--DS-font-size-title-2);
+        font-weight: var(--DS-font-weight-title-2);
+        line-height: var(--DS-line-height-title-2);
+        letter-spacing: var(--DS-letter-spacing-title-2);
+    }
+
+    .title .title-content-text[b-57cl8mf22t] {
+        font-family: var(--DS-font-family-body-2);
+        font-size: var(--DS-font-size-body-2);
+        font-weight: var(--DS-font-weight-body-2);
+        line-height: var(--DS-line-height-body-2);
+        letter-spacing: var(--DS-letter-spacing-body-2);
+    }
+
+.card[b-57cl8mf22t] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow-wrap: break-word;
+    background-color: var(--DS-color-surface-neutral-default-rest);
+    background-clip: border-box;
+    border: var(--DS-border-radius-10) solid var(--DS-color-border-neutral-default-rest);
+    border-radius: 0.25rem;
+}
+/* _content/BlazorDemo.Showcase/Components/Account/Pages/Login.razor.rz.scp.css */
+.main-content[b-u7u0v3pr7p] {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.block-content[b-u7u0v3pr7p] {
+    border-radius: 0.5rem;
+    flex-grow: 0;
+    margin: auto;
+    max-width: 30rem;
+    padding: 1.5rem;
+    width: auto;
+}
+
+.title[b-u7u0v3pr7p] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 0.625rem;
+}
+
+    .title .title-text[b-u7u0v3pr7p] {
+        font-family: var(--DS-font-family-title-2);
+        font-size: var(--DS-font-size-title-2);
+        font-weight: var(--DS-font-weight-title-2);
+        line-height: var(--DS-line-height-title-2);
+        letter-spacing: var(--DS-letter-spacing-title-2);
+        color: var(--DS-color-content-neutral-default-rest);
+    }
+
+.or[b-u7u0v3pr7p] {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0.75rem 0;
+}
+
+    .or .or-line[b-u7u0v3pr7p] {
+        border-bottom: 1px solid var(--DS-color-content-neutral-default-rest);
+        width: 100%;
+        opacity: 0.2;
+    }
+
+    .or .or-text[b-u7u0v3pr7p] {
+        padding: 0 0.625rem 0px 0.625rem;
+        font-size: 0.75rem;
+        line-height: 1.125rem;
+        opacity: 0.7;
+    }
+
+.links-area[b-u7u0v3pr7p] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    padding-top: 0.625rem;
+}
+
+.links-container[b-u7u0v3pr7p] {
+    display: flex;
+    gap: 0.25rem;
+    justify-content: center;
+    align-items: center;
+    padding: 0.25rem 0;
+}
+
+    .links-container .dot[b-u7u0v3pr7p] {
+        height: 0.3125rem;
+        width: 0.3125rem;
+        margin: 0 0.1875rem;
+        border-radius: 50%;
+        background-color: var(--DS-color-content-neutral-default-rest);
+        opacity: 0.7;
+    }
+
+[b-u7u0v3pr7p] a {
+    color: var(--DS-color-content-primary-default-rest);
+    text-decoration: underline;
+}
+
+.card[b-u7u0v3pr7p] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow-wrap: break-word;
+    background-color: var(--DS-color-surface-neutral-default-rest);
+    background-clip: border-box;
+    border: var(--DS-border-radius-10) solid var(--DS-color-border-neutral-default-rest);
+    border-radius: 0.25rem;
+}
+
+[b-u7u0v3pr7p] .w-100 {
+    width: 100%;
+}
+
+[b-u7u0v3pr7p] .text-danger {
+    color: var(--DS-color-surface-danger-default-rest);
+}
+/* _content/BlazorDemo.Showcase/Components/Account/Pages/LoginWith2fa.razor.rz.scp.css */
+.main-content[b-bdk1kumyin] {
+    display: flex;
+    height: 100%;
+}
+
+.block-content[b-bdk1kumyin] {
+    border-radius: 0.5rem;
+    flex-grow: 0;
+    margin: auto;
+    max-width: 30rem;
+    padding: 1.5rem;
+    width: auto;
+}
+
+.title[b-bdk1kumyin] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 0.625rem;
+    color: var(--DS-color-content-neutral-default-rest);
+}
+
+    .title .title-header-text[b-bdk1kumyin] {
+        font-family: var(--DS-font-family-title-2);
+        font-size: var(--DS-font-size-title-2);
+        font-weight: var(--DS-font-weight-title-2);
+        line-height: var(--DS-line-height-title-2);
+        letter-spacing: var(--DS-letter-spacing-title-2);
+    }
+
+    .title .title-content-text[b-bdk1kumyin] {
+        font-family: var(--DS-font-family-body-2);
+        font-size: var(--DS-font-size-body-2);
+        font-weight: var(--DS-font-weight-body-2);
+        line-height: var(--DS-line-height-body-2);
+        letter-spacing: var(--DS-letter-spacing-body-2);
+    }
+
+.links-container[b-bdk1kumyin] {
+    display: flex;
+    gap: 0.25rem;
+    justify-content: center;
+    align-items: center;
+    padding: 0.25rem 0;
+}
+
+.card[b-bdk1kumyin] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow-wrap: break-word;
+    background-color: var(--DS-color-surface-neutral-default-rest);
+    background-clip: border-box;
+    border: var(--DS-border-radius-10) solid var(--DS-color-border-neutral-default-rest);
+    border-radius: 0.25rem;
+}
+
+[b-bdk1kumyin] a {
+    color: var(--DS-color-content-primary-default-rest);
+    text-decoration: underline;
+}
+
+[b-bdk1kumyin] .w-100 {
+    width: 100%;
+}
+
+[b-bdk1kumyin] .text-danger {
+    color: var(--DS-color-surface-danger-default-rest);
+}
+/* _content/BlazorDemo.Showcase/Components/Account/Pages/LoginWithRecoveryCode.razor.rz.scp.css */
+.main-content[b-d6w7x849nc] {
+    display: flex;
+    height: 100%;
+}
+
+.block-content[b-d6w7x849nc] {
+    border-radius: 0.5rem;
+    flex-grow: 0;
+    margin: auto;
+    max-width: 30rem;
+    padding: 1.5rem;
+    width: auto;
+}
+
+.title[b-d6w7x849nc] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 0.625rem;
+    color: var(--DS-color-content-neutral-default-rest);
+}
+
+    .title .title-header-text[b-d6w7x849nc] {
+        font-family: var(--DS-font-family-title-2);
+        font-size: var(--DS-font-size-title-2);
+        font-weight: var(--DS-font-weight-title-2);
+        line-height: var(--DS-line-height-title-2);
+        letter-spacing: var(--DS-letter-spacing-title-2);
+    }
+
+    .title .title-content-text[b-d6w7x849nc] {
+        font-family: var(--DS-font-family-body-2);
+        font-size: var(--DS-font-size-body-2);
+        font-weight: var(--DS-font-weight-body-2);
+        line-height: var(--DS-line-height-body-2);
+        letter-spacing: var(--DS-letter-spacing-body-2);
+    }
+
+.card[b-d6w7x849nc] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow-wrap: break-word;
+    background-color: var(--DS-color-surface-neutral-default-rest);
+    background-clip: border-box;
+    border: var(--DS-border-radius-10) solid var(--DS-color-border-neutral-default-rest);
+    border-radius: 0.25rem;
+}
+
+[b-d6w7x849nc] .w-100 {
+    width: 100%;
+}
+
+[b-d6w7x849nc] .text-danger {
+    color: var(--DS-color-surface-danger-default-rest);
+}
+/* _content/BlazorDemo.Showcase/Components/Account/Pages/Manage/ChangePassword.razor.rz.scp.css */
+.block-content[b-nrgg7unwjo] {
+    border-radius: 0.5rem;
+    flex-grow: 0;
+    margin: auto;
+    max-width: 30rem;
+    padding: 1.5rem;
+    width: auto;
+}
+
+[b-nrgg7unwjo] .w-100 {
+    width: 100%;
+}
+
+[b-nrgg7unwjo] .text-danger {
+    color: var(--DS-color-surface-danger-default-rest);
+}
+/* _content/BlazorDemo.Showcase/Components/Account/Pages/Manage/DeletePersonalData.razor.rz.scp.css */
+.block-content[b-uwxyjf0r4y] {
+    border-radius: 0.5rem;
+    flex-grow: 0;
+    margin: auto;
+    max-width: 30rem;
+    padding: 1.5rem;
+    width: auto;
+}
+
+.title[b-uwxyjf0r4y] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-bottom: 0.625rem;
+}
+
+    .title.title-secondary[b-uwxyjf0r4y] {
+        padding-top: 0.313rem;
+        padding-bottom: 0;
+        color: var(--DS-color-content-neutral-subdued-rest);
+    }
+
+    .title .title-content-text-secondary[b-uwxyjf0r4y] {
+        font-size: 1.25rem;
+        line-height: 1.5rem;
+    }
+
+[b-uwxyjf0r4y] .w-100 {
+    width: 100%;
+}
+/* _content/BlazorDemo.Showcase/Components/Account/Pages/Manage/Disable2fa.razor.rz.scp.css */
+.block-content[b-eud9nggyie] {
+    border-radius: 0.5rem;
+    flex-grow: 0;
+    margin: auto;
+    max-width: 30rem;
+    padding: 1.5rem;
+    width: auto;
+}
+
+.title[b-eud9nggyie] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-bottom: 0.625rem;
+}
+
+    .title.title-secondary[b-eud9nggyie] {
+        padding-top: 0.313rem;
+        padding-bottom: 0;
+        color: var(--DS-color-content-neutral-subdued-rest);
+    }
+
+    .title .title-content-text-secondary[b-eud9nggyie] {
+        font-size: 1.25rem;
+        line-height: 1.5rem;
+    }
+
+[b-eud9nggyie] a {
+    color: var(--DS-color-content-primary-default-rest);
+    text-decoration: underline;
+}
+
+[b-eud9nggyie] .w-100 {
+    width: 100%;
+}
+/* _content/BlazorDemo.Showcase/Components/Account/Pages/Manage/Email.razor.rz.scp.css */
+.block-content[b-i14ji0tnok] {
+    border-radius: 0.5rem;
+    flex-grow: 0;
+    margin: auto;
+    max-width: 30rem;
+    padding: 1.5rem;
+    width: auto;
+}
+
+[b-i14ji0tnok] .w-100 {
+    width: 100%;
+}
+
+[b-i14ji0tnok] .text-danger {
+    color: var(--DS-color-surface-danger-default-rest);
+}
+/* _content/BlazorDemo.Showcase/Components/Account/Pages/Manage/EnableAuthenticator.razor.rz.scp.css */
+.block-content[b-ec1qxdx25x] {
+    border-radius: 0.5rem;
+    flex-grow: 0;
+    margin: auto;
+    max-width: 30rem;
+    padding: 1.5rem;
+    width: auto;
+}
+
+.title[b-ec1qxdx25x] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-bottom: 0.625rem;
+}
+
+    .title.title-secondary[b-ec1qxdx25x] {
+        padding-top: 0.313rem;
+        padding-bottom: 0;
+        color: var(--DS-color-content-neutral-subdued-rest);
+    }
+
+    .title .title-content-text-secondary[b-ec1qxdx25x] {
+        font-size: 1.25rem;
+        line-height: 1.5rem;
+    }
+
+.info-message[b-ec1qxdx25x] {
+    padding: 0.625rem 1rem 0.625rem 1rem;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    .info-message[b-ec1qxdx25x]::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 0.15;
+        background: var(--DS-primary-90);
+        z-index: -1;
+    }
+
+.twofactor-content[b-ec1qxdx25x] {
+    display: flex;
+    flex-direction: column;
+}
+
+    .twofactor-content .info-message[b-ec1qxdx25x] {
+        margin: 0.625rem 0 0.625rem 0;
+        justify-content: start;
+    }
+
+[b-ec1qxdx25x] a {
+    color: var(--DS-color-content-primary-default-rest);
+    text-decoration: underline;
+}
+
+[b-ec1qxdx25x] .w-100 {
+    width: 100%;
+}
+
+[b-ec1qxdx25x] .text-danger {
+    color: var(--DS-color-surface-danger-default-rest);
+}
+/* _content/BlazorDemo.Showcase/Components/Account/Pages/Manage/ExternalLogins.razor.rz.scp.css */
+.block-content[b-4ekleo4ojo] {
+    border-radius: 0.5rem;
+    flex-grow: 0;
+    margin: auto;
+    max-width: 30rem;
+    padding: 1.5rem;
+    width: auto;
+}
+
+.title[b-4ekleo4ojo] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-bottom: 0.625rem;
+}
+
+    .title.title-secondary[b-4ekleo4ojo] {
+        padding-top: 0.313rem;
+        padding-bottom: 0;
+        color: var(--DS-color-content-neutral-subdued-rest);
+    }
+
+    .title .title-content-text-secondary[b-4ekleo4ojo] {
+        font-size: 1.25rem;
+        line-height: 1.5rem;
+    }
+
+.current-logins[b-4ekleo4ojo] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+    .current-logins .current-logins-item[b-4ekleo4ojo] {
+        display: flex;
+        gap: 0.625rem;
+    }
+
+.info-message[b-4ekleo4ojo]::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.15;
+    background: var(--DS-primary-90);
+    z-index: -1;
+}
+
+.info-message[b-4ekleo4ojo] {
+    padding: 0.625rem 1rem 0.625rem 1rem;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button-group[b-4ekleo4ojo] {
+    display: flex;
+    flex-direction: row;
+    gap: 0.625rem;
+}
+
+[b-4ekleo4ojo] .w-100 {
+    width: 100%;
+}
+/* _content/BlazorDemo.Showcase/Components/Account/Pages/Manage/GenerateRecoveryCodes.razor.rz.scp.css */
+.block-content[b-h7yh0i42hv] {
+    border-radius: 0.5rem;
+    flex-grow: 0;
+    margin: auto;
+    max-width: 30rem;
+    padding: 1.5rem;
+    width: auto;
+}
+
+.title[b-h7yh0i42hv] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-bottom: 0.625rem;
+}
+
+    .title.title-secondary[b-h7yh0i42hv] {
+        padding-top: 0.313rem;
+        padding-bottom: 0;
+        color: var(--DS-color-content-neutral-subdued-rest);
+    }
+
+    .title .title-content-text-secondary[b-h7yh0i42hv] {
+        font-size: 1.25rem;
+        line-height: 1.5rem;
+    }
+
+.manage-content[b-h7yh0i42hv] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+}
+
+[b-h7yh0i42hv] a {
+    color: var(--DS-color-content-primary-default-rest);
+    text-decoration: underline;
+}
+
+[b-h7yh0i42hv] .w-100 {
+    width: 100%;
+}
+/* _content/BlazorDemo.Showcase/Components/Account/Pages/Manage/Index.razor.rz.scp.css */
+.block-content[b-fhdw2n1r4a] {
+    border-radius: 0.5rem;
+    flex-grow: 0;
+    margin: auto;
+    max-width: 30rem;
+    padding: 1.5rem;
+    width: auto;
+}
+
+[b-fhdw2n1r4a] .w-100 {
+    width: 100%;
+}
+
+[b-fhdw2n1r4a] .text-danger {
+    color: var(--DS-color-surface-danger-default-rest);
+}
+/* _content/BlazorDemo.Showcase/Components/Account/Pages/Manage/PersonalData.razor.rz.scp.css */
+.block-content[b-cmjp3f0ecs] {
+    border-radius: 0.5rem;
+    flex-grow: 0;
+    margin: auto;
+    max-width: 30rem;
+    padding: 1.5rem;
+    width: auto;
+}
+
+.title[b-cmjp3f0ecs] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-bottom: 0.625rem;
+}
+
+    .title.title-secondary[b-cmjp3f0ecs] {
+        padding-top: 0.313rem;
+        padding-bottom: 0;
+        color: var(--DS-color-content-neutral-subdued-rest);
+    }
+
+    .title .title-content-text-secondary[b-cmjp3f0ecs] {
+        font-size: 1.25rem;
+        line-height: 1.5rem;
+    }
+
+.button-group[b-cmjp3f0ecs] {
+    display: flex;
+    flex-direction: row;
+    gap: 0.625rem;
+}
+
+[b-cmjp3f0ecs] .button-link {
+    text-decoration: unset;
+}
+
+[b-cmjp3f0ecs] .w-100 {
+    width: 100%;
+}
+/* _content/BlazorDemo.Showcase/Components/Account/Pages/Manage/ResetAuthenticator.razor.rz.scp.css */
+.block-content[b-zramiuun64] {
+    border-radius: 0.5rem;
+    flex-grow: 0;
+    margin: auto;
+    max-width: 30rem;
+    padding: 1.5rem;
+    width: auto;
+}
+
+.title[b-zramiuun64] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-bottom: 0.625rem;
+}
+
+    .title.title-secondary[b-zramiuun64] {
+        padding-top: 0.313rem;
+        padding-bottom: 0;
+        color: var(--DS-color-content-neutral-subdued-rest);
+    }
+
+    .title .title-content-text-secondary[b-zramiuun64] {
+        font-size: 1.25rem;
+        line-height: 1.5rem;
+    }
+
+[b-zramiuun64] .w-100 {
+    width: 100%;
+}
+/* _content/BlazorDemo.Showcase/Components/Account/Pages/Manage/SetPassword.razor.rz.scp.css */
+.block-content[b-d3kq2y5ot1] {
+    border-radius: 0.5rem;
+    flex-grow: 0;
+    margin: auto;
+    max-width: 30rem;
+    padding: 1.5rem;
+    width: auto;
+}
+
+.title[b-d3kq2y5ot1] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-bottom: 0.625rem;
+}
+
+    .title.title-secondary[b-d3kq2y5ot1] {
+        padding-top: 0.313rem;
+        padding-bottom: 0;
+        color: var(--DS-color-content-neutral-subdued-rest);
+    }
+
+    .title .title-content-text-secondary[b-d3kq2y5ot1] {
+        font-size: 1.25rem;
+        line-height: 1.5rem;
+    }
+
+[b-d3kq2y5ot1] .w-100 {
+    width: 100%;
+}
+
+[b-d3kq2y5ot1] .text-danger {
+    color: var(--DS-color-surface-danger-default-rest);
+}
+/* _content/BlazorDemo.Showcase/Components/Account/Pages/Manage/TwoFactorAuthentication.razor.rz.scp.css */
+.block-content[b-2bmkax9tub] {
+    border-radius: 0.5rem;
+    flex-grow: 0;
+    margin: auto;
+    max-width: 30rem;
+    padding: 1.5rem;
+    width: auto;
+}
+
+.title[b-2bmkax9tub] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-bottom: 0.625rem;
+}
+
+    .title.title-secondary[b-2bmkax9tub] {
+        padding-top: 0.313rem;
+        padding-bottom: 0;
+        color: var(--DS-color-content-neutral-subdued-rest);
+    }
+
+    .title .title-content-text-secondary[b-2bmkax9tub] {
+        font-size: 1.25rem;
+        line-height: 1.5rem;
+    }
+
+.button-group[b-2bmkax9tub] {
+    display: flex;
+    flex-direction: row;
+    gap: 0.625rem;
+}
+
+[b-2bmkax9tub] .button-link {
+    text-decoration: unset;
+}
+
+[b-2bmkax9tub] a {
+    color: var(--DS-color-content-primary-default-rest);
+    text-decoration: underline;
+}
+
+[b-2bmkax9tub] .w-100 {
+    width: 100%;
+}
+
+.alert[b-2bmkax9tub] {
+    position: relative;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+
+    .alert.alert-danger[b-2bmkax9tub] {
+        color: var(--DS-color-content-danger-default-rest);
+        background-color: var(--DS-color-surface-danger-subdued-rest);
+        border-color: var(--DS-color-border-danger-default-rest);
+    }
+
+    .alert.alert-warning[b-2bmkax9tub] {
+        color: var(--DS-color-content-danger-warning-rest);
+        background-color: var(--DS-color-surface-warning-subdued-rest);
+        border-color: var(--DS-color-border-warning-default-rest);
+    }
+/* _content/BlazorDemo.Showcase/Components/Account/Pages/Register.razor.rz.scp.css */
+.main-content[b-wozwkh0p2y] {
+    display: flex;
+    height: 100%;
+}
+
+.block-content[b-wozwkh0p2y] {
+    border-radius: 0.5rem;
+    flex-grow: 0;
+    margin: auto;
+    max-width: 30rem;
+    padding: 1.5rem;
+    width: auto;
+}
+
+.title[b-wozwkh0p2y] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 0.625rem;
+}
+
+    .title .title-text[b-wozwkh0p2y] {
+        font-family: var(--DS-font-family-title-2);
+        font-size: var(--DS-font-size-title-2);
+        font-weight: var(--DS-font-weight-title-2);
+        line-height: var(--DS-line-height-title-2);
+        letter-spacing: var(--DS-letter-spacing-title-2);
+        color: var(--DS-color-content-neutral-default-rest);
+    }
+
+.or[b-wozwkh0p2y] {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0.3125rem 0;
+}
+
+    .or .or-line[b-wozwkh0p2y] {
+        border-bottom: 1px solid var(--DS-color-content-neutral-default-rest);
+        width: 100%;
+        opacity: 0.2;
+    }
+
+    .or .or-text[b-wozwkh0p2y] {
+        padding: 0 0.625rem 0 0.625rem;
+        font-size: 0.75rem;
+        line-height: 1.125rem;
+        color: var(--DS-color-content-neutral-default-rest);
+        opacity: 0.7;
+    }
+
+.links-area[b-wozwkh0p2y] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    padding-top: 0.625rem;
+}
+
+.links-container[b-wozwkh0p2y] {
+    display: flex;
+    gap: 0.25rem;
+    justify-content: center;
+    align-items: center;
+    padding: 0.25rem 0;
+}
+
+    .links-container .dot[b-wozwkh0p2y] {
+        height: 0.3125rem;
+        width: 0.3125rem;
+        margin: 0 0.1875rem;
+        border-radius: 50%;
+        background-color: var(--DS-color-content-neutral-default-rest);
+        opacity: 0.7;
+    }
+
+.card[b-wozwkh0p2y] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow-wrap: break-word;
+    background-color: var(--DS-color-surface-neutral-default-rest);
+    background-clip: border-box;
+    border: var(--DS-border-radius-10) solid var(--DS-color-border-neutral-default-rest);
+    border-radius: 0.25rem;
+}
+
+[b-wozwkh0p2y] a {
+    color: var(--DS-color-content-primary-default-rest);
+    text-decoration: underline;
+}
+
+[b-wozwkh0p2y] .w-100 {
+    width: 100%;
+}
+
+[b-wozwkh0p2y] .text-danger {
+    color: var(--DS-color-surface-danger-default-rest);
+}
+/* _content/BlazorDemo.Showcase/Components/Account/Pages/RegisterConfirmation.razor.rz.scp.css */
+.main-content[b-seoz8kkkah] {
+    display: flex;
+    height: 100%;
+}
+
+.block-content[b-seoz8kkkah] {
+    border-radius: 0.5rem;
+    flex-grow: 0;
+    margin: auto;
+    max-width: 30rem;
+    padding: 1.5rem;
+    width: auto;
+}
+
+.title[b-seoz8kkkah] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 0.625rem;
+    color: var(--DS-color-content-neutral-default-rest);
+}
+
+    .title .title-text[b-seoz8kkkah] {
+        font-family: var(--DS-font-family-title-2);
+        font-size: var(--DS-font-size-title-2);
+        font-weight: var(--DS-font-weight-title-2);
+        line-height: var(--DS-line-height-title-2);
+        letter-spacing: var(--DS-letter-spacing-title-2);
+    }
+
+[b-seoz8kkkah] .button-link {
+    text-decoration: unset;
+}
+
+[b-seoz8kkkah] .confirm-button {
+    margin-top: 0.3125rem;
+}
+
+.card[b-seoz8kkkah] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow-wrap: break-word;
+    background-color: var(--DS-color-surface-neutral-default-rest);
+    background-clip: border-box;
+    border: var(--DS-border-radius-10) solid var(--DS-color-border-neutral-default-rest);
+    border-radius: 0.25rem;
+}
+
+[b-seoz8kkkah] a {
+    color: var(--DS-color-content-primary-default-rest);
+    text-decoration: underline;
+}
+
+[b-seoz8kkkah] .w-100 {
+    width: 100%;
+}
+/* _content/BlazorDemo.Showcase/Components/Account/Pages/ResendEmailConfirmation.razor.rz.scp.css */
+.main-content[b-flj3b1ioex] {
+    display: flex;
+    height: 100%;
+}
+
+.block-content[b-flj3b1ioex] {
+    border-radius: 0.5rem;
+    flex-grow: 0;
+    margin: auto;
+    max-width: 30rem;
+    padding: 1.5rem;
+    width: auto;
+}
+
+.title[b-flj3b1ioex] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 0.625rem;
+}
+
+    .title .title-text[b-flj3b1ioex] {
+        font-family: var(--DS-font-family-title-2);
+        font-size: var(--DS-font-size-title-2);
+        font-weight: var(--DS-font-weight-title-2);
+        line-height: var(--DS-line-height-title-2);
+        letter-spacing: var(--DS-letter-spacing-title-2);
+        color: var(--DS-color-content-neutral-default-rest);
+    }
+
+.links-container[b-flj3b1ioex] {
+    display: flex;
+    gap: 0.25rem;
+    justify-content: center;
+    align-items: center;
+    padding-top: 0.75rem;
+}
+
+.card[b-flj3b1ioex] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow-wrap: break-word;
+    background-color: var(--DS-color-surface-neutral-default-rest);
+    background-clip: border-box;
+    border: var(--DS-border-radius-10) solid var(--DS-color-border-neutral-default-rest);
+    border-radius: 0.25rem;
+}
+
+[b-flj3b1ioex] a {
+    color: var(--DS-color-content-primary-default-rest);
+    text-decoration: underline;
+}
+
+[b-flj3b1ioex] .w-100 {
+    width: 100%;
+}
+
+[b-flj3b1ioex] .text-danger {
+    color: var(--DS-color-surface-danger-default-rest);
+}
+/* _content/BlazorDemo.Showcase/Components/Account/Pages/ResetPassword.razor.rz.scp.css */
+.main-content[b-2m03r8lhgd] {
+    display: flex;
+    height: 100%;
+}
+
+.block-content[b-2m03r8lhgd] {
+    border-radius: 0.5rem;
+    flex-grow: 0;
+    margin: auto;
+    max-width: 30rem;
+    padding: 1.5rem;
+    width: auto;
+}
+
+.title[b-2m03r8lhgd] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 0.625rem;
+}
+
+    .title .title-text[b-2m03r8lhgd] {
+        font-family: var(--DS-font-family-title-2);
+        font-size: var(--DS-font-size-title-2);
+        font-weight: var(--DS-font-weight-title-2);
+        line-height: var(--DS-line-height-title-2);
+        letter-spacing: var(--DS-letter-spacing-title-2);
+        color: var(--DS-color-content-neutral-default-rest);
+    }
+
+.links-container[b-2m03r8lhgd] {
+    display: flex;
+    gap: 0.25rem;
+    justify-content: center;
+    align-items: center;
+    padding: 0.25rem 0;
+}
+
+.card[b-2m03r8lhgd] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow-wrap: break-word;
+    background-color: var(--DS-color-surface-neutral-default-rest);
+    background-clip: border-box;
+    border: var(--DS-border-radius-10) solid var(--DS-color-border-neutral-default-rest);
+    border-radius: 0.25rem;
+}
+
+[b-2m03r8lhgd] a {
+    color: var(--DS-color-content-primary-default-rest);
+    text-decoration: underline;
+}
+
+[b-2m03r8lhgd] .w-100 {
+    width: 100%;
+}
+
+[b-2m03r8lhgd] .text-danger {
+    color: var(--DS-color-surface-danger-default-rest);
+}
+/* _content/BlazorDemo.Showcase/Components/Account/Pages/ResetPasswordConfirmation.razor.rz.scp.css */
+.main-content[b-1l87w89vgy] {
+    display: flex;
+    height: 100%;
+}
+
+.block-content[b-1l87w89vgy] {
+    border-radius: 0.5rem;
+    flex-grow: 0;
+    margin: auto;
+    max-width: 30rem;
+    padding: 1.5rem;
+    width: auto;
+}
+
+.title[b-1l87w89vgy] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 0.625rem;
+    color: var(--DS-color-content-neutral-default-rest);
+}
+
+    .title .title-header-text[b-1l87w89vgy] {
+        font-family: var(--DS-font-family-title-2);
+        font-size: var(--DS-font-size-title-2);
+        font-weight: var(--DS-font-weight-title-2);
+        line-height: var(--DS-line-height-title-2);
+        letter-spacing: var(--DS-letter-spacing-title-2);
+    }
+
+    .title .title-content-text[b-1l87w89vgy] {
+        font-family: var(--DS-font-family-body-2);
+        font-size: var(--DS-font-size-body-2);
+        font-weight: var(--DS-font-weight-body-2);
+        line-height: var(--DS-line-height-body-2);
+        letter-spacing: var(--DS-letter-spacing-body-2);
+    }
+
+[b-1l87w89vgy] a {
+    color: var(--DS-color-content-primary-default-rest);
+    text-decoration: underline;
+}
+/* _content/BlazorDemo.Showcase/Components/Account/Shared/AccountLayout.razor.rz.scp.css */
+html[b-x75vwzs8sx], body[b-x75vwzs8sx] {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    height: 100%;
+}
+
+main[b-x75vwzs8sx] {
+    height: 100%;
+}
+
+.demo-title[b-x75vwzs8sx] {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+    .demo-title .demo-title-text[b-x75vwzs8sx] {
+        font-family: var(--DS-font-family-sans-serif);
+        font-size: var(--DS-font-size-large-title);
+        font-weight: var(--DS-font-weight-large-title);
+        line-height: var(--DS-line-height-large-title);
+        letter-spacing: var(--DS-letter-spacing-large-title);
+        color: var(--DS-color-content-neutral-default-rest);
+        margin-bottom: 8vh;
+        margin-top: 10vh;
+    }
+
+[b-x75vwzs8sx] .w-100 {
+    width: 100%;
+}
+/* _content/BlazorDemo.Showcase/Components/Account/Shared/ExternalLoginPicker.razor.rz.scp.css */
+.external-logins[b-s4q2br2i71] {
+    display: flex;
+    gap: 0.5rem;
+}
+
+@media (max-width: 500px) {
+    .external-logins[b-s4q2br2i71] {
+        flex-direction: column;
+    }
+}
+
+.info-message[b-s4q2br2i71] {
+    padding: 0.625rem 1rem 0.625rem 1rem;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    .info-message[b-s4q2br2i71]::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 0.15;
+        background: var(--DS-primary-90);
+        z-index: -1;
+    }
+
+[b-s4q2br2i71] a {
+    color: var(--DS-color-content-primary-default-rest);
+    text-decoration: underline;
+}
+
+[b-s4q2br2i71] .w-100 {
+    width: 100%;
+}
+/* _content/BlazorDemo.Showcase/Components/Account/Shared/ManageLayout.razor.rz.scp.css */
+.main-content[b-1m7gwlstq1] {
+    display: flex;
+    height: 100%;
+}
+
+.manage-layout[b-1m7gwlstq1] {
+    flex-grow: 0;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+}
+
+.title[b-1m7gwlstq1] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-bottom: 0.625rem;
+}
+
+    .title .title-header-text[b-1m7gwlstq1] {
+        font-size: 2rem;
+        line-height: 2.5rem;
+        font-weight: 600;
+        letter-spacing: 0;
+    }
+
+    .title .title-content-text[b-1m7gwlstq1] {
+        font-size: 1.5em;
+        line-height: 2rem;
+        font-weight: 400;
+        letter-spacing: 0;
+    }
+
+[b-1m7gwlstq1] .tab-icon {
+    width: 1rem;
+    height: 1rem;
+    min-width: 1rem;
+    min-height: 1rem;
+    background-size: contain;
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    background-position: center center;
+    background-color: currentColor;
+}
+
+[b-1m7gwlstq1] .icon-profile {
+    -webkit-mask-image: url("images/account/manage-profile.svg");
+    mask-image: url("images/account/manage-profile.svg");
+}
+
+[b-1m7gwlstq1] .icon-email {
+    -webkit-mask-image: url("images/account/manage-email.svg");
+    mask-image: url("images/account/manage-email.svg");
+}
+
+[b-1m7gwlstq1] .icon-two-factor {
+    -webkit-mask-image: url("images/account/manage-two-factor.svg");
+    mask-image: url("images/account/manage-two-factor.svg");
+}
+
+[b-1m7gwlstq1] .icon-password {
+    -webkit-mask-image: url("images/account/manage-password.svg");
+    mask-image: url("images/account/manage-password.svg");
+}
+
+[b-1m7gwlstq1] .icon-personal {
+    -webkit-mask-image: url("images/account/manage-personal.svg");
+    mask-image: url("images/account/manage-personal.svg");
+}
+
+[b-1m7gwlstq1] .icon-external {
+    -webkit-mask-image: url("images/account/user.svg");
+    mask-image: url("images/account/user.svg");
+}
+/* _content/BlazorDemo.Showcase/Components/Account/Shared/ShowRecoveryCodes.razor.rz.scp.css */
+.title[b-jfjh64budu] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-bottom: 0.625rem;
+}
+
+    .title .title-content-text-secondary[b-jfjh64budu] {
+        font-size: 1.25rem;
+        line-height: 1.5rem;
+    }
+
+.manage-content[b-jfjh64budu] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+}
+
+    .manage-content .codes[b-jfjh64budu] {
+        margin: 0.625rem 0 0.625rem 0;
+    }
+/* _content/BlazorDemo.Showcase/Components/Account/Shared/StatusMessage.razor.rz.scp.css */
+.alert[b-yya4j2n8no] {
+    position: relative;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+
+    .alert.alert-danger[b-yya4j2n8no] {
+        color: var(--DS-color-content-danger-default-rest);
+        background-color: var(--DS-color-surface-danger-subdued-rest);
+        border-color: var(--DS-color-border-danger-default-rest);
+    }
+
+    .alert.alert-success[b-yya4j2n8no] {
+        color: var(--DS-color-content-success-warning-rest);
+        background-color: var(--DS-color-surface-success-subdued-rest);
+        border-color: var(--DS-color-border-success-default-rest);
+    }
+/* _content/BlazorDemo.Showcase/Components/Pages/Error.razor.rz.scp.css */
+[b-98y419va4m] .text-danger {
+    color: var(--DS-color-surface-danger-default-rest);
+}

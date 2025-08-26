@@ -1,0 +1,25 @@
+.status[b-o43mby33gx] {
+    font-size: 0.9em;
+}
+
+    .status[b-o43mby33gx]::before {
+        content: " ";
+        display: inline-block;
+        width: 0.6em;
+        height: 0.6em;
+        margin-right: 0.3rem;
+        border-radius: 50%;
+        background-color: currentColor;
+    }
+
+.status.status-salaried[b-o43mby33gx] {
+    color: var(--DS-color-content-success-default-rest);
+}
+
+.status.status-commission[b-o43mby33gx] {
+    color: var(--DS-color-content-info-default-rest);
+}
+
+.status.status-terminated[b-o43mby33gx] {
+    color: var(--DS-color-content-danger-default-rest);
+}
