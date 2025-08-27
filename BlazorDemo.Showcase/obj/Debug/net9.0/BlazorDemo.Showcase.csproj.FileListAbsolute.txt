@@ -381,3 +381,4 @@ C:\Users\Public\Documents\DevExpress Demos 25.1\Components\Blazor\BlazorDemo.Sho
 C:\Users\Public\Documents\DevExpress Demos 25.1\Components\Blazor\BlazorDemo.Showcase\CS\BlazorDemo.Showcase\obj\Debug\net9.0\ref\BlazorDemo.Showcase.dll
 C:\Users\Public\Documents\DevExpress Demos 25.1\Components\Blazor\BlazorDemo.Showcase\CS\BlazorDemo.Showcase\obj\Debug\net9.0\compressed\xg1ppnj8kk-x4wl75mvtp.gz
 C:\Users\Public\Documents\DevExpress Demos 25.1\Components\Blazor\BlazorDemo.Showcase\CS\BlazorDemo.Showcase\obj\Debug\net9.0\compressed\57r8bn0ql9-fn8km4mh1c.gz
+C:\Users\Public\Documents\DevExpress Demos 25.1\Components\Blazor\BlazorDemo.Showcase\CS\BlazorDemo.Showcase\obj\Debug\net9.0\BlazorDemo.Showcase.sourcelink.json
