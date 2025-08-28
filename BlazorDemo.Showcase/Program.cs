@@ -31,20 +31,14 @@ builder.Services.ConfigureApplicationCookie(o =>
 builder.Services.Configure<CircuitOptions>(o => o.DetailedErrors = true);
 
 var configuration = builder.Configuration;
-builder.Services.AddDbContext<ApplicationDbContext>((provider, options) => {
-    var accessor = provider.GetRequiredService<IHttpContextAccessor>();
-    var context = accessor?.HttpContext;
-    if(context != null) {
-        string? dataKey = context.Request.Cookies["DemoDataKey"];
-        if(dataKey == null) {
-            dataKey = Guid.NewGuid().ToString();
-            context.Response.Cookies.Append("DemoDataKey", dataKey);
-        }
-        options.UseInMemoryDatabase(dataKey);
+var connectionString = configuration.GetConnectionString("DefaultConnection")
+    ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+builder.Services.AddDbContext<ApplicationDbContext>(options => {
+    options.UseSqlServer(connectionString);
+    if (builder.Environment.IsDevelopment()) {
+        options.EnableSensitiveDataLogging();
+        options.EnableDetailedErrors();
     }
-    // Use the following lines of code to configures the context to connect to a SQL Server database.
-    // var connectionString = configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-    // options.UseSqlServer(connectionString);
 });
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -57,6 +51,14 @@ builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSe
 builder.WebHost.UseStaticWebAssets();
 
 var app = builder.Build();
+
+// Apply any pending EF Core migrations at startup (Development only)
+if (app.Environment.IsDevelopment())
+{
+    using var scope = app.Services.CreateScope();
+    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    db.Database.Migrate();
+}
 
 string? pathBase = configuration.GetValue<string>("pathbase");
 if(!string.IsNullOrEmpty(pathBase)) {

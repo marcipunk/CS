@@ -1358,10 +1358,10 @@ C:\Users\Public\Documents\DevExpress Demos 25.1\Components\Blazor\BlazorDemo.Sho
 C:\Users\Public\Documents\DevExpress Demos 25.1\Components\Blazor\BlazorDemo.Showcase\CS\BlazorDemo.Showcase.Client\obj\Debug\net9.0\compressed\hv4zdzk1gd-pts1yuugrj.gz
 C:\Users\Public\Documents\DevExpress Demos 25.1\Components\Blazor\BlazorDemo.Showcase\CS\BlazorDemo.Showcase.Client\obj\Debug\net9.0\compressed\0998qqequh-pts1yuugrj.gz
 C:\Users\Public\Documents\DevExpress Demos 25.1\Components\Blazor\BlazorDemo.Showcase\CS\BlazorDemo.Showcase.Client\obj\Debug\net9.0\BlazorDemo.Showcase.Client.sourcelink.json
-C:\Users\Public\Documents\DevExpress Demos 25.1\Components\Blazor\BlazorDemo.Showcase\CS\BlazorDemo.Showcase.Client\bin\Debug\net9.0\wwwroot\_framework\BlazorDemo.Showcase.Client.cj8gsc1or4.wasm
-C:\Users\Public\Documents\DevExpress Demos 25.1\Components\Blazor\BlazorDemo.Showcase\CS\BlazorDemo.Showcase.Client\bin\Debug\net9.0\wwwroot\_framework\BlazorDemo.Showcase.Client.e4wooabtxg.pdb
-C:\Users\Public\Documents\DevExpress Demos 25.1\Components\Blazor\BlazorDemo.Showcase\CS\BlazorDemo.Showcase.Client\bin\Debug\net9.0\wwwroot\_framework\BlazorDemo.Showcase.Client.cj8gsc1or4.wasm.gz
-C:\Users\Public\Documents\DevExpress Demos 25.1\Components\Blazor\BlazorDemo.Showcase\CS\BlazorDemo.Showcase.Client\bin\Debug\net9.0\wwwroot\_framework\BlazorDemo.Showcase.Client.e4wooabtxg.pdb.gz
-C:\Users\Public\Documents\DevExpress Demos 25.1\Components\Blazor\BlazorDemo.Showcase\CS\BlazorDemo.Showcase.Client\obj\Debug\net9.0\compressed\i9juvrtbux-cj8gsc1or4.gz
-C:\Users\Public\Documents\DevExpress Demos 25.1\Components\Blazor\BlazorDemo.Showcase\CS\BlazorDemo.Showcase.Client\obj\Debug\net9.0\compressed\6x6o1d0gt6-e4wooabtxg.gz
-C:\Users\Public\Documents\DevExpress Demos 25.1\Components\Blazor\BlazorDemo.Showcase\CS\BlazorDemo.Showcase.Client\obj\Debug\net9.0\compressed\8nahngwvfh-vwjdjwhdxx.gz
+C:\Users\Public\Documents\DevExpress Demos 25.1\Components\Blazor\BlazorDemo.Showcase\CS\BlazorDemo.Showcase.Client\bin\Debug\net9.0\wwwroot\_framework\BlazorDemo.Showcase.Client.6bci4gpy67.wasm
+C:\Users\Public\Documents\DevExpress Demos 25.1\Components\Blazor\BlazorDemo.Showcase\CS\BlazorDemo.Showcase.Client\bin\Debug\net9.0\wwwroot\_framework\BlazorDemo.Showcase.Client.nclvoo9aqj.pdb
+C:\Users\Public\Documents\DevExpress Demos 25.1\Components\Blazor\BlazorDemo.Showcase\CS\BlazorDemo.Showcase.Client\bin\Debug\net9.0\wwwroot\_framework\BlazorDemo.Showcase.Client.6bci4gpy67.wasm.gz
+C:\Users\Public\Documents\DevExpress Demos 25.1\Components\Blazor\BlazorDemo.Showcase\CS\BlazorDemo.Showcase.Client\bin\Debug\net9.0\wwwroot\_framework\BlazorDemo.Showcase.Client.nclvoo9aqj.pdb.gz
+C:\Users\Public\Documents\DevExpress Demos 25.1\Components\Blazor\BlazorDemo.Showcase\CS\BlazorDemo.Showcase.Client\obj\Debug\net9.0\compressed\i9juvrtbux-6bci4gpy67.gz
+C:\Users\Public\Documents\DevExpress Demos 25.1\Components\Blazor\BlazorDemo.Showcase\CS\BlazorDemo.Showcase.Client\obj\Debug\net9.0\compressed\6x6o1d0gt6-nclvoo9aqj.gz
+C:\Users\Public\Documents\DevExpress Demos 25.1\Components\Blazor\BlazorDemo.Showcase\CS\BlazorDemo.Showcase.Client\obj\Debug\net9.0\compressed\8nahngwvfh-45d5h59xl9.gz
