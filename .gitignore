@@ -1,0 +1,11 @@
+# Ignore build output in all subfolders
+**/[Bb]in/
+**/[Oo]bj/
+**/[Dd]ebug/
+**/[Rr]elease/
+
+# IDE and user-specific files
+.vs/
+.vscode/
+*.user
+*.suo
