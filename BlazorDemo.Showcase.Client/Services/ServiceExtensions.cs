@@ -7,18 +7,24 @@ using Microsoft.AspNetCore.Components;
 namespace BlazorDemo.Showcase.Client.Utils {
     public static class ServiceExtensions {
         public static void AddAppServices(this IServiceCollection services) {
-            services.AddScoped(sp =>
-                new HttpClient {
-                    BaseAddress = new Uri("https://js.devexpress.com/Demos/RwaService/api/")
-                });
+            // Default HttpClient used for built-in demo data
+            services.AddScoped(sp => new HttpClient {
+                BaseAddress = new Uri("https://js.devexpress.com/Demos/RwaService/api/")
+            });
+
             services.AddDevExpressBlazor();
+            services.AddScoped<IAuthTokenStore, AuthTokenStore>();
             services.AddScoped<SearchManager>();
             services.AddScoped<ModuleLoader>();
             services.AddScoped<ThemeManager>();
             services.AddScoped<ClipboardManager>();
             services.AddScoped<SizeModeManager>();
             services.AddScoped<ContactDataProvider>();
-            services.AddScoped<WorkRequestDataProvider>();
+            services.AddScoped<WorkRequestDataProvider>(sp => {
+                var nav = sp.GetRequiredService<NavigationManager>();
+                var proxyClient = new HttpClient { BaseAddress = new Uri(nav.BaseUri) };
+                return new WorkRequestDataProvider(proxyClient);
+            });
             services.AddScoped<AnalyticDataProvider>();
             services.AddScoped<TasksDataProvider>();
             services.AddCascadingValue("NotificationCount", sp => 4);

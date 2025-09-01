@@ -1,5 +1,4 @@
 using BlazorDemo.Showcase.Models;
-using Microsoft.JSInterop;
 using System.Net.Http.Json;
 using System.Net.Http.Headers;
 
@@ -11,14 +10,11 @@ namespace BlazorDemo.Showcase.Services.DataProviders {
     public class WorkRequestDataProvider : DataProvider
     {
         private readonly HttpClient httpClient;
-        private readonly IJSRuntime jsRuntime;
+    // No JS/token dependency when routing via server proxy
 
-
-
-        public WorkRequestDataProvider(HttpClient httpClient, IJSRuntime jsRuntime) : base(httpClient)
+    public WorkRequestDataProvider(HttpClient httpClient) : base(httpClient)
         {
             this.httpClient = httpClient;
-            this.jsRuntime = jsRuntime;
         }
 
 
@@ -65,18 +61,9 @@ namespace BlazorDemo.Showcase.Services.DataProviders {
             var queryString = query.Count > 0 ? "?" + string.Join("&", query) : string.Empty;
            // var url = $"{GetBasePath()}{queryString}";
 
-            // Wait for Authorization header to be available (set on HttpClient.DefaultRequestHeaders).
-            var token = await jsRuntime.InvokeAsync<string>("localStorage.getItem", "wjwtToken");
-
-
-
-            if (string.IsNullOrWhiteSpace(token))
-                throw new InvalidOperationException("Authorization header missing or has no parameter (token). Set Http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(\"Bearer\", token) before calling this method.");
-
             var result = await WLoadDataAsync<PagedResponse<WorkRequest>?>(
                 ["/api/v1/WorkRequest", queryString],
-                cancellationToken: cancellationToken,
-                wjwtToken: token);
+                cancellationToken: cancellationToken);
             
             return result?.Data;
 

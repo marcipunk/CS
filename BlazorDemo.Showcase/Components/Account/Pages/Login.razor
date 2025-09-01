@@ -1,6 +1,7 @@
 ﻿@page "/Account/Login"
 
 @using System.ComponentModel.DataAnnotations
+@using System.Net.Http.Json
 @using Microsoft.AspNetCore.Authentication
 @using Microsoft.AspNetCore.Identity
 @using BlazorDemo.Showcase.Data
@@ -9,6 +10,8 @@
 @inject ILogger<Login> Logger
 @inject NavigationManager NavigationManager
 @inject IdentityRedirectManager RedirectManager
+@inject IHttpClientFactory HttpClientFactory
+@inject IHttpContextAccessor HttpContextAccessor
 
 <PageTitle>Log in</PageTitle>
 
@@ -69,9 +72,37 @@
     public async Task LoginUser() {
         // This doesn't count login failures towards account lockout
         // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-        var result = await SignInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+        var result = await SignInManager.PasswordSignInAsync(DemoData.UserEmail, DemoData.UserPassword, Input.RememberMe, lockoutOnFailure: false);
         if(result.Succeeded) {
             Logger.LogInformation("User logged in.");
+            // Call external WORK API login and store token server-side
+            try {
+                var client = HttpClientFactory.CreateClient("WorkApi");
+                var body = new { username = Input.Email, password = Input.Password };
+                var response = await client.PostAsJsonAsync("api/v1/Auth/login", body);
+                if(response.IsSuccessStatusCode) {
+                    var payload = await response.Content.ReadFromJsonAsync<LoginResponse>();
+                    if(payload?.TokenString is string token && !string.IsNullOrWhiteSpace(token)) {
+                        var http = HttpContextAccessor.HttpContext!;
+                        var cookieOptions = new CookieOptions {
+                            HttpOnly = true,
+                            Secure = true,
+                            SameSite = SameSiteMode.Lax
+                        };
+                        if(Input.RememberMe) {
+                            cookieOptions.Expires = DateTimeOffset.UtcNow.AddDays(7);
+                        }
+                        http.Response.Cookies.Append("work_token", token, cookieOptions);
+                    } else {
+                        Logger.LogWarning("WORK login succeeded but token missing.");
+                    }
+                } else {
+                    var errorText = await response.Content.ReadAsStringAsync();
+                    Logger.LogWarning("WORK login failed: {Error}", errorText);
+                }
+            } catch(Exception ex) {
+                Logger.LogError(ex, "WORK login call failed");
+            }
             RedirectManager.RedirectTo(ReturnUrl);
         } else if(result.RequiresTwoFactor) {
             RedirectManager.RedirectTo(
@@ -86,8 +117,8 @@
     }
 
     protected override void OnInitialized() {
-        Input.Email = DemoData.UserEmail;
-        Input.Password = DemoData.UserPassword;
+      //  Input.Email = DemoData.UserEmail;
+      //  Input.Password = DemoData.UserPassword;
         base.OnInitialized();
     }
 
@@ -102,5 +133,12 @@
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
+    }
+}
+
+@code {
+    private sealed class LoginResponse {
+        public string? TokenString { get; set; }
+        public bool ResetPassword { get; set; }
     }
 }

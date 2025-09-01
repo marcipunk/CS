@@ -24,6 +24,7 @@ builder.Services.AddScoped<IdentityUserAccessor>();
 builder.Services.AddScoped<IdentityRedirectManager>();
 builder.Services.AddScoped<AuthenticationStateProvider, PersistingServerAuthenticationStateProvider>();
 builder.Services.AddScoped<CookieEvents>();
+builder.Services.AddHttpContextAccessor();
 builder.Services.ConfigureApplicationCookie(o =>
 {
     o.EventsType = typeof(CookieEvents);
@@ -47,6 +48,13 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.S
     .AddDefaultTokenProviders();
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
+
+// Outbound HTTP client for the external WORK API
+builder.Services.AddTransient<BlazorDemo.Showcase.Services.WorkApiAuthHandler>();
+builder.Services.AddHttpClient("WorkApi", client =>
+{
+    client.BaseAddress = new Uri("https://work.sbdw.cobra.local/");
+}).AddHttpMessageHandler<BlazorDemo.Showcase.Services.WorkApiAuthHandler>();
 
 builder.WebHost.UseStaticWebAssets();
 
@@ -92,5 +100,19 @@ app.MapRazorComponents<App>()
 
 
 app.MapAdditionalIdentityEndpoints();
+
+// Minimal proxy for the external WORK API.
+// The named HttpClient "WorkApi" attaches the Bearer token from the HttpOnly cookie via WorkApiAuthHandler.
+app.MapGet("/workproxy/{**rest}", async (string? rest, HttpContext http, IHttpClientFactory httpClientFactory) =>
+{
+    var client = httpClientFactory.CreateClient("WorkApi");
+    var targetPathAndQuery = (rest ?? string.Empty) + http.Request.QueryString.Value;
+    var target = new Uri(client.BaseAddress!, targetPathAndQuery);
+
+    using var upstream = await client.GetAsync(target, http.RequestAborted);
+    var contentType = upstream.Content.Headers.ContentType?.ToString() ?? "application/json";
+    var body = await upstream.Content.ReadAsStringAsync(http.RequestAborted);
+    return Results.Content(body, contentType: contentType, statusCode: (int)upstream.StatusCode);
+}).AllowAnonymous();
 
 app.Run();

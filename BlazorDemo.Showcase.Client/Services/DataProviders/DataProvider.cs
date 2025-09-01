@@ -1,4 +1,3 @@
-using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json; // added
 
@@ -44,25 +43,19 @@ namespace BlazorDemo.Showcase.Services.DataProviders {
 
         protected Task<T?> WLoadDataAsync<T>(string[]? pathItems = null, CancellationToken cancellationToken = default, string? wjwtToken = null)
         {
-            var resultPath = CombineUrl("https://work.sbdw.cobra.local", pathItems);
+            // Route through server proxy; server attaches Authorization from HttpOnly cookie.
+            var resultPath = CombineUrl("/workproxy", pathItems);
 
-            // Use a per-request Authorization header so it doesn't leak to other domains/requests.
             var request = new HttpRequestMessage(HttpMethod.Get, resultPath);
-            if (!string.IsNullOrWhiteSpace(wjwtToken))
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", wjwtToken);
-
             return SendAndReadAsync<T>(request, cancellationToken);
         }
 
         // Convenience: load only a named top-level property (default: "data") from the work-domain response
         protected Task<T?> WLoadDataPropertyAsync<T>(string[]? pathItems = null, CancellationToken cancellationToken = default, string? wjwtToken = null, string propertyName = "data")
         {
-            var resultPath = CombineUrl("https://work.sbdw.cobra.local", pathItems);
+            var resultPath = CombineUrl("/workproxy", pathItems);
 
             var request = new HttpRequestMessage(HttpMethod.Get, resultPath);
-            if (!string.IsNullOrWhiteSpace(wjwtToken))
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", wjwtToken);
-
             return SendAndReadPropertyAsync<T>(request, propertyName, cancellationToken);
         }
 
