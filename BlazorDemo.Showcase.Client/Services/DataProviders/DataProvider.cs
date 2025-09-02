@@ -112,6 +112,15 @@ namespace BlazorDemo.Showcase.Services.DataProviders {
         private async Task<T?> SendAndReadAsync<T>(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             using var response = await _httpClient.SendAsync(request, cancellationToken);
+            if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                // If the token cookie was just issued, a brief retry can resolve race conditions.
+                try { await Task.Delay(200, cancellationToken); } catch { }
+                using var retry = new HttpRequestMessage(request.Method, request.RequestUri);
+                using var retryResponse = await _httpClient.SendAsync(retry, cancellationToken);
+                retryResponse.EnsureSuccessStatusCode();
+                return await retryResponse.Content.ReadFromJsonAsync<T>(cancellationToken: cancellationToken);
+            }
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadFromJsonAsync<T>(cancellationToken: cancellationToken);
         }
@@ -120,6 +129,21 @@ namespace BlazorDemo.Showcase.Services.DataProviders {
         private async Task<T?> SendAndReadPropertyAsync<T>(HttpRequestMessage request, string propertyName, CancellationToken cancellationToken)
         {
             using var response = await _httpClient.SendAsync(request, cancellationToken);
+            if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                try { await Task.Delay(200, cancellationToken); } catch { }
+                using var retry = new HttpRequestMessage(request.Method, request.RequestUri);
+                using var retryResponse = await _httpClient.SendAsync(retry, cancellationToken);
+                retryResponse.EnsureSuccessStatusCode();
+                await using var retryStream = await retryResponse.Content.ReadAsStreamAsync(cancellationToken);
+                using var retryDoc = await JsonDocument.ParseAsync(retryStream, cancellationToken: cancellationToken);
+                if (retryDoc.RootElement.ValueKind != JsonValueKind.Object)
+                    return default;
+                if (!retryDoc.RootElement.TryGetProperty(propertyName, out var retryElement) || retryElement.ValueKind == JsonValueKind.Undefined || retryElement.ValueKind == JsonValueKind.Null)
+                    return default;
+                var retryOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web);
+                return retryElement.Deserialize<T>(retryOptions);
+            }
             response.EnsureSuccessStatusCode();
 
             await using var stream = await response.Content.ReadAsStreamAsync(cancellationToken);

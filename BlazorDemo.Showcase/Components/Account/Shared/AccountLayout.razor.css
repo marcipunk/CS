@@ -23,7 +23,8 @@ main {
         letter-spacing: var(--DS-letter-spacing-large-title);
         color: var(--DS-color-content-neutral-default-rest);
         margin-bottom: 8vh;
-        margin-top: 10vh;
+        /* Ensure only 10px gap from the logo above */
+        margin-top: 0;
     }
 
 ::deep .w-100 {
@@ -35,10 +36,18 @@ main {
     justify-content: center;
     align-items: center;
     margin-top: 5vh;
-    margin-bottom: 2vh;
+    /* 10px spacing below the logo before the title */
+    margin-bottom: 10px;
 }
 
     .logo img {
         max-width: 100px;
         height: auto;
     }
+
+
+
+
+
+
+

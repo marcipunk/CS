@@ -40,13 +40,16 @@ namespace BlazorDemo.Showcase.Components.Account {
             var authenticationState = await authenticationStateTask;
             var principal = authenticationState.User;
 
-            if(principal.Identity?.IsAuthenticated == true) {
-                var userId = principal.FindFirst(options.ClaimsIdentity.UserIdClaimType)?.Value;
-                var email = principal.FindFirst(options.ClaimsIdentity.EmailClaimType)?.Value;
-                var name = principal.FindFirst(options.ClaimsIdentity.UserNameClaimType)?.Value;
-                var role = principal.FindFirst(options.ClaimsIdentity.RoleClaimType)?.Value ?? "Guest";
+            if (principal.Identity?.IsAuthenticated == true) {
+                // Prefer external WORK user info if present, otherwise fall back to default Identity claims
+                string? GetClaim(string type) => principal.FindFirst(type)?.Value;
 
-                if(userId != null && email != null && name != null && role != null) {
+                var userId = GetClaim(options.ClaimsIdentity.UserIdClaimType);
+                var email = GetClaim("work:email") ?? GetClaim(options.ClaimsIdentity.EmailClaimType);
+                var name = GetClaim("work:name") ?? GetClaim(options.ClaimsIdentity.UserNameClaimType);
+                var role = GetClaim(options.ClaimsIdentity.RoleClaimType) ?? "Guest";
+
+                if (userId != null && email != null && name != null && role != null) {
                     state.PersistAsJson(nameof(UserInfo), new UserInfo {
                         UserId = userId,
                         Email = email,

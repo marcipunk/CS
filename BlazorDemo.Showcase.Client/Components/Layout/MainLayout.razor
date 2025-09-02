@@ -19,8 +19,9 @@
         <div class="content header-content">
             <AuthorizeView Context="authorizeContext">
                 @{
-                    var userName = authorizeContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
-                    var email = authorizeContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+                    string? GetClaim(string t) => authorizeContext.User.Claims.FirstOrDefault(c => c.Type == t)?.Value;
+                    var userName = GetClaim("work:name") ?? GetClaim(ClaimTypes.Name);
+                    var email = GetClaim("work:email") ?? GetClaim(ClaimTypes.Email);
                 }
                 <DxToolbar CssClass="toolbar" ItemRenderStyleMode="ToolbarRenderStyleMode.Plain">
                     <Items>

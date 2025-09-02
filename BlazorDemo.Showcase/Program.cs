@@ -66,6 +66,9 @@ if (app.Environment.IsDevelopment())
     using var scope = app.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     db.Database.Migrate();
+    // Seed demo data once per application start
+    var demo = scope.ServiceProvider.GetRequiredService<DemoData>();
+    await demo.InitAsync();
 }
 
 string? pathBase = configuration.GetValue<string>("pathbase");
@@ -88,6 +91,7 @@ if(app.Environment.IsDevelopment()) {
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();

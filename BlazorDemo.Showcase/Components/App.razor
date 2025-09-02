@@ -54,13 +54,11 @@
     HttpContext HttpContext { get; set; } = default!;
     [CascadingParameter(Name = "ParentSizeMode")]
     SizeMode SizeMode { get; set; }
-    [Inject] DemoData DemoData { get; set; } = default!;
 
     IComponentRenderMode? RenderModeForPage => HttpContext.Request.Path.StartsWithSegments("/Account") ? null : new InteractiveAutoRenderMode(false);
 
     protected override async Task OnInitializedAsync() {
         ThemeManager.ObtainTheme(HttpContext?.Request.Cookies.Select(x => new KeyValuePairSerializer<string, string>(x.Key, x.Value)).ToList());
-        await DemoData.InitAsync();
         await base.OnInitializedAsync();
     }
 }

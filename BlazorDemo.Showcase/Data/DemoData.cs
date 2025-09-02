@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Identity;
 
 namespace BlazorDemo.Showcase.Data {
     public class DemoData(
-            ApplicationDbContext dbContext,
             UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager) {
 
@@ -10,7 +9,33 @@ namespace BlazorDemo.Showcase.Data {
         public static readonly string UserPassword = "1qaz!QAZ";
 
         public async Task InitAsync() {
-            dbContext.Database.EnsureCreated();
+            // Dev-time seeding and repair for the default admin user.
+            var existingUser = await userManager.FindByEmailAsync(UserEmail);
+            if (existingUser != null) {
+                bool updated = false;
+                if (!existingUser.EmailConfirmed) { existingUser.EmailConfirmed = true; updated = true; }
+                // Clear lockout and failed count to avoid NotAllowed/LockedOut results
+                if (existingUser.LockoutEnd != null || existingUser.AccessFailedCount > 0) {
+                    existingUser.LockoutEnd = null;
+                    existingUser.AccessFailedCount = 0;
+                    updated = true;
+                }
+                if (updated) {
+                    await userManager.UpdateAsync(existingUser);
+                }
+
+                // Reset password to the known demo value so login works
+                var resetToken = await userManager.GeneratePasswordResetTokenAsync(existingUser);
+                await userManager.ResetPasswordAsync(existingUser, resetToken, UserPassword);
+
+                if (!await roleManager.RoleExistsAsync("Admin")) {
+                    var _ = await roleManager.CreateAsync(new IdentityRole("Admin"));
+                }
+                if (!await userManager.IsInRoleAsync(existingUser, "Admin")) {
+                    await userManager.AddToRoleAsync(existingUser, "Admin");
+                }
+                return;
+            }
 
             var email = UserEmail;
             var user = new ApplicationUser {
@@ -19,11 +44,15 @@ namespace BlazorDemo.Showcase.Data {
                 EmailConfirmed = true,
                 LockoutEnabled = true,
             };
-            await userManager.CreateAsync(user, UserPassword);
+            var createResult = await userManager.CreateAsync(user, UserPassword);
+            if (!createResult.Succeeded)
+                return;
 
-            var role = await roleManager.FindByNameAsync("Admin");
-            if(role == null)
-                await roleManager.CreateAsync(new IdentityRole("Admin"));
+            // Ensure the Admin role exists
+            if (!await roleManager.RoleExistsAsync("Admin")) {
+                var _ = await roleManager.CreateAsync(new IdentityRole("Admin"));
+            }
+            // Add the user to Admin role
             await userManager.AddToRoleAsync(user, "Admin");
         }
     }

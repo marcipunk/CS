@@ -14,13 +14,51 @@
 
 @implements IDisposable
 
-<h3>Hello World</h3>
+
 <div class="content-root">
+    <div class="card toolbar">
+        <DxToolbar Title="Work Requests" ItemRenderStyleMode="ToolbarRenderStyleMode.Plain">
+            <DxToolbarItem Text="@StatusFilterValue" RenderStyleMode="ToolbarItemRenderStyleMode.Plain">
+                <Items>
+                    <DxToolbarItem Text="All" Click="FilterByStatus" />
+                    @foreach(var status in Statuses) {
+                        <DxToolbarItem Text="@status" Click="FilterByStatus" />
+                    }
+                </Items>
+            </DxToolbarItem>
+            <DxToolbarItem Text="Add Work Request" Click="OnAddWorkRequestClick" Alignment="ToolbarItemAlignment.Right" IconCssClass="add-icon icon medium-icon" />
+            <DxToolbarItem Tooltip="Column Chooser" Alignment="ToolbarItemAlignment.Right" Click="OnColumnChooserItemClick" IconCssClass="column-chooser-icon icon medium-icon" />
+            <DxToolbarItem Text="Export" Alignment="ToolbarItemAlignment.Right" IconCssClass="export-icon icon medium-icon">
+                <Items>
+                    <DxToolbarItem Text="Export all data to Excel" Click="ExportAllDataToExcel" />
+                    <DxToolbarItem Text="Export selected rows to Excel" Click="ExportSelectedRowsToExcel" />
+                    <DxToolbarItem Text="Export all data to CSV" Click="ExportAllDataToCsv" />
+                    <DxToolbarItem Text="Export selected rows to CSV" Click="ExportSelectedRowsDataToCsv" />
+                    <DxToolbarItem Text="Export all data to PDF" Click="ExportAllDataToPdf" />
+                    <DxToolbarItem Text="Export selected rows to PDF" Click="ExportSelectedRowsDataToPdf" />
+                </Items>
+            </DxToolbarItem>
+            <DxToolbarItem Alignment="ToolbarItemAlignment.Right" CssClass="search-textbox-item" Tooltip="Search">
+                <Template Context="SearchContext">
+                    <div class="custom-item">
+                        <DxSearchBox CssClass="search-textbox"
+                                     NullText="Search"
+                                     BindValueMode="BindValueMode.OnInput"
+                                     ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
+                                     @bind-Text=SearchText />
+                    </div>
+                </Template>
+            </DxToolbarItem>
+            <DxToolbarItem Tooltip="Refresh" BeginGroup="true" Click="@LoadGridDataAsync" Alignment="ToolbarItemAlignment.Right" IconCssClass="refresh-icon icon medium-icon" />
+        </DxToolbar>
+    </div>
+   
+
     <TargetContent>
         <div class="h-100">
             <DxLoadingPanel Visible="@(!IsDataLoaded)" IsContentBlocked="true" IsContentVisible="false"
                 IndicatorVisible="true" IndicatorAreaVisible="true" ZIndex="101" Text="Loading...">
-                <DxGrid @ref="Grid" Data="Data" CssClass="contact-list" SearchText="@SearchText"
+                <DxGrid @ref="Grid" Data="Data" CssClass="workrequest-list" SearchText="@SearchText"
                     EditMode="GridEditMode.PopupEditForm" PopupEditFormCssClass="pw-800" SkeletonRowsEnabled="true"
                     ColumnResizeMode="GridColumnResizeMode.NextColumn"
                     FilterMenuButtonDisplayMode="GridFilterMenuButtonDisplayMode.Always" TextWrapEnabled="false"
@@ -40,7 +78,7 @@
                     </Columns>
                     @* <EditFormTemplate Context="EditFormContext">
                                 @{
-                                    var contact = (WorkRequest)EditFormContext.EditModel;
+                                    var workrequest = (WorkRequest)EditFormContext.EditModel;
                                 }
                                 <DxFormLayout CssClass="w-100">
                                     <DxFormLayoutItem Caption="Name:" ColSpanMd="6">
@@ -53,16 +91,16 @@
                                         @EditFormContext.GetEditor("Position")
                                     </DxFormLayoutItem>
                                     <DxFormLayoutItem Caption="Status:" ColSpanMd="6">
-                                        <DxComboBox @bind-Value="@contact.Status" Data="@Statuses" />
+                                        <DxComboBox @bind-Value="@workrequest.Status" Data="@Statuses" />
                                     </DxFormLayoutItem>
                                     <DxFormLayoutItem Caption="Assigned To:" ColSpanMd="6">
                                         @EditFormContext.GetEditor("AssignedTo")
                                     </DxFormLayoutItem>
                                     <DxFormLayoutItem Caption="Phone:" ColSpanMd="6">
-                                        <DxMaskedInput @bind-Value="@contact.Phone" Mask="+1(000)000-0000" />
+                                        <DxMaskedInput @bind-Value="@workrequest.Phone" Mask="+1(000)000-0000" />
                                     </DxFormLayoutItem>
                                     <DxFormLayoutItem Caption="Email:" ColSpanMd="6">
-                                        <DxMaskedInput @bind-Value="@contact.Email"
+                                        <DxMaskedInput @bind-Value="@workrequest.Email"
                                                        Mask="@(@"(\w|[.-])+@(\w|-)+\.(\w|-){2,4}")"
                                                        MaskMode="MaskMode.RegEx" />
                                     </DxFormLayoutItem>
@@ -91,7 +129,7 @@
     IGrid? Grid { get; set; }
     string? SearchText { get; set; }
     string StatusFilterValue { get; set; } = "All";
-    // string[] Statuses { get; } = new[] { "Salaried", "Commission", "Terminated" };
+    string[] Statuses { get; } = new[] { "Elfogadva","Bejelentve", "Törölt", "Folyamatban" };
 
     protected override async Task OnInitializedAsync()
     {
@@ -128,19 +166,19 @@
 
     string GetPinButtonIconCss() => $"{(IsWorkRequestPanelPinned ? "pinned-icon" : "unpinned-icon")} medium-icon";
 
-    @* void OnActiveWorkRequestChanged(WorkRequestDetail contact) {
+    @* void OnActiveWorkRequestChanged(WorkRequestDetail workrequest) {
         var index = Data!.FindIndex(c => c.Id == ActiveWorkRequest!.Id);
         if(index >= 0) {
             var newData = new List<WorkRequest>(Data);
             newData[index] = new WorkRrequest {
-                Id = contact.Id,
-                Company = contact.Company,
-                AssignedTo = contact.Manager,
-                Email = contact.Email,
-                Name = contact.Name,
-                Phone = contact.Phone,
-                Position = contact.Position,
-                Status = contact.Status
+                Id = workrequest.Id,
+                Company = workrequest.Company,
+                AssignedTo = workrequest.Manager,
+                Email = workrequest.Email,
+                Name = workrequest.Name,
+                Phone = workrequest.Phone,
+                Position = workrequest.Position,
+                Status = workrequest.Status
             };
             Data = newData;
         } 
@@ -184,7 +222,7 @@
         }
         IsActiveWorkRequestLoading = true;
         var workRequest = (WorkRequest)Grid!.GetDataItem(args.VisibleIndex);
-        ActiveWorkRequest = await DataProvider.GetAsync(tenantId: workRequest.TenantId, customerId: contactworkRequest.CustomerId, statusId: workRequest.StatusId, createdBefore: workRequest.CreatedBefore, createdAfter: workRequest.CreatedAfter, pageNumber: 1, pageSize: 1, cancellationToken: disposalTokenSource.Token)
+        ActiveWorkRequest = await DataProvider.GetAsync(tenantId: workRequest.TenantId, customerId: workrequestworkRequest.CustomerId, statusId: workRequest.StatusId, createdBefore: workRequest.CreatedBefore, createdAfter: workRequest.CreatedAfter, pageNumber: 1, pageSize: 1, cancellationToken: disposalTokenSource.Token)
             .ContinueWith(t => t.Result.FirstOrDefault(), disposalTokenSource.Token);
         IsActiveWorkRequestLoading = false;
         StateHasChanged();
@@ -196,10 +234,6 @@
         SizeMode.Large => "27rem",
         _ => "23.625rem",
     };
-
-    // Icon + color + tooltip mapping for StatusId
-
-
 
     void IDisposable.Dispose()
     {

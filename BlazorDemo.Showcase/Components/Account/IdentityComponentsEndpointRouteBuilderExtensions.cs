@@ -6,6 +6,7 @@ using BlazorDemo.Showcase.Data;
 using BlazorDemo.Showcase.Utils;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -38,12 +39,20 @@ namespace Microsoft.AspNetCore.Routing {
             });
 
             accountGroup.MapGet("/Logout", async (
+                HttpContext context,
                 ClaimsPrincipal user,
                 SignInManager<ApplicationUser> signInManager,
                 [FromQuery(Name = "ReturnUrl")] string returnUrl
             ) => {
+                // Sign out of Identity
                 await signInManager.SignOutAsync();
-                return TypedResults.LocalRedirect($"~/{returnUrl}");
+                // Clear external WORK API token cookie
+                context.Response.Cookies.Delete("work_token", new CookieOptions { Path = "/", HttpOnly = true, Secure = true, SameSite = SameSiteMode.Lax });
+                // Redirect to Login, optionally preserving ReturnUrl for after re-login
+                var target = string.IsNullOrEmpty(returnUrl)
+                    ? "~/Account/Login"
+                    : $"~/Account/Login?ReturnUrl={Uri.EscapeDataString(returnUrl)}";
+                return TypedResults.LocalRedirect(target);
             });
 
             var manageGroup = accountGroup.MapGroup("Manage").RequireAuthorization();
