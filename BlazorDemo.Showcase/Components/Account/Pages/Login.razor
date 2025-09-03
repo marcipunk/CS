@@ -123,9 +123,9 @@
                             Path = "/"
                         };
                         if(Input.RememberMe) {
-                            var expires = DateTimeOffset.UtcNow.AddDays(7);
+                            var expires = DateTimeOffset.UtcNow.AddDays(1);
                             cookieOptions.Expires = expires;
-                            cookieOptions.MaxAge = TimeSpan.FromDays(7);
+                            cookieOptions.MaxAge = TimeSpan.FromDays(1);
                         }
                         // Proactively delete stale cookie and set the fresh token
                         http.Response.Cookies.Delete("work_token", new CookieOptions { Path = "/", HttpOnly = true, Secure = true, SameSite = SameSiteMode.Lax });
@@ -166,11 +166,79 @@
                                 if (root.TryGetProperty("id", out var idEl) && idEl.TryGetInt32(out var idVal)) appUser.Id = idVal;
                                 if (root.TryGetProperty("email", out var emailEl) && emailEl.ValueKind == JsonValueKind.String) appUser.Email = emailEl.GetString();
                                 if (root.TryGetProperty("name", out var nameEl) && nameEl.ValueKind == JsonValueKind.String) appUser.Name = nameEl.GetString();
-                                if (root.TryGetProperty("primaryTenantId", out var ptiEl)) appUser.PrimaryTenantId = ptiEl;
+                                if (root.TryGetProperty("primaryTenantId", out var ptiEl))
+                                {
+                                    try {
+                                        int parsed = 0;
+                                        switch (ptiEl.ValueKind)
+                                        {
+                                            case JsonValueKind.Number:
+                                                if (ptiEl.TryGetInt32(out var n)) parsed = n;
+                                                break;
+                                            case JsonValueKind.String:
+                                                var s = ptiEl.GetString();
+                                                if (!string.IsNullOrWhiteSpace(s) && int.TryParse(s, out var n2)) parsed = n2;
+                                                break;
+                                            case JsonValueKind.True:
+                                                parsed = 1;
+                                                break;
+                                            case JsonValueKind.False:
+                                                parsed = 0;
+                                                break;
+                                        }
+                                        appUser.PrimaryTenantId = parsed;
+                                    } catch { /* ignore */ }
+                                }
                                 if (root.TryGetProperty("isActive", out var actEl) && (actEl.ValueKind == JsonValueKind.True || actEl.ValueKind == JsonValueKind.False)) appUser.IsActive = actEl.GetBoolean();
                                 if (root.TryGetProperty("twoFactorEnabled", out var tfeEl) && (tfeEl.ValueKind == JsonValueKind.True || tfeEl.ValueKind == JsonValueKind.False)) appUser.TwoFactorEnabled = tfeEl.GetBoolean();
                                 if (root.TryGetProperty("registrationDate", out var regEl) && regEl.ValueKind == JsonValueKind.String && DateTime.TryParse(regEl.GetString(), out var regDt)) appUser.RegistrationDate = regDt;
                                 if (root.TryGetProperty("registrationToken", out var tokEl) && tokEl.ValueKind == JsonValueKind.String && Guid.TryParse(tokEl.GetString(), out var regTok)) appUser.RegistrationToken = regTok;
+                                // Parse customerAppUsers if present and cache them in memory
+                                try
+                                {
+                                    if (root.TryGetProperty("customerAppUsers", out var cauEl) && cauEl.ValueKind == JsonValueKind.Array)
+                                    {
+                                        var list = new List<CustomerAppUserDto>();
+                                        foreach (var item in cauEl.EnumerateArray())
+                                        {
+                                            if (item.ValueKind != JsonValueKind.Object) continue;
+                                            var dto = new CustomerAppUserDto();
+                                            if (item.TryGetProperty("customerId", out var cid) && cid.TryGetInt32(out var cidVal)) dto.CustomerId = cidVal;
+                                            if (item.TryGetProperty("appUserId", out var auid) && auid.TryGetInt32(out var auidVal)) dto.AppUserId = auidVal;
+                                            if (item.TryGetProperty("role", out var roleEl) && roleEl.TryGetInt32(out var roleVal)) dto.Role = roleVal;
+                                            if (item.TryGetProperty("customer", out var custEl) && custEl.ValueKind == JsonValueKind.Object)
+                                            {
+                                                var c = new CustomerDto();
+                                                if (custEl.TryGetProperty("id", out var idc) && idc.TryGetInt32(out var idcVal)) c.Id = idcVal;
+                                                if (custEl.TryGetProperty("tenantId", out var tid) && tid.TryGetInt32(out var tidVal)) c.TenantId = tidVal;
+                                                if (custEl.TryGetProperty("timeStamp", out var ts) && ts.ValueKind == JsonValueKind.String && DateTime.TryParse(ts.GetString(), out var tsDt)) c.TimeStamp = tsDt;
+                                                if (custEl.TryGetProperty("partnerId", out var pid) && pid.TryGetInt32(out var pidVal)) c.PartnerId = pidVal;
+                                                if (custEl.TryGetProperty("departmentId", out var did) && did.TryGetInt32(out var didVal)) c.DepartmentId = didVal;
+                                                if (custEl.TryGetProperty("vatRegNo", out var vat) && vat.ValueKind == JsonValueKind.String) c.VatRegNo = vat.GetString();
+                                                if (custEl.TryGetProperty("name", out var cname) && cname.ValueKind == JsonValueKind.String) c.Name = cname.GetString();
+                                                if (custEl.TryGetProperty("voucherName", out var vname) && vname.ValueKind == JsonValueKind.String) c.VoucherName = vname.GetString();
+                                                if (custEl.TryGetProperty("addressLine", out var addr) && addr.ValueKind == JsonValueKind.String) c.AddressLine = addr.GetString();
+                                                if (custEl.TryGetProperty("inactive", out var ina) && (ina.ValueKind == JsonValueKind.True || ina.ValueKind == JsonValueKind.False)) c.Inactive = ina.GetBoolean();
+                                                dto.Customer = c;
+                                            }
+                                            list.Add(dto);
+                                        }
+                                        appUser.CustomerAppUsers = list;
+                                        try
+                                        {
+                                            var userIdKey = user.Id;
+                                            if (!string.IsNullOrEmpty(userIdKey))
+                                            {
+                                                MemoryCache.Set($"work:customerAppUsers:{userIdKey}", list, new MemoryCacheEntryOptions
+                                                {
+                                                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30)
+                                                });
+                                            }
+                                        }
+                                        catch { }
+                                    }
+                                }
+                                catch { }
                                 if (appUser != null)
                                 {
                                     // Enrich current sign-in with WORK claims in the auth cookie (no DB writes)
@@ -186,8 +254,10 @@
                                         // Add fresh WORK claims
                                         newIdentity.AddClaim(new("work:userId", appUser.Id.ToString()));
                                         newIdentity.AddClaim(new("work:email", appUser.Email ?? string.Empty));
-                                        newIdentity.AddClaim(new("work:name", appUser.Name ?? string.Empty));
-                                        newIdentity.AddClaim(new("work:primaryTenantId", appUser.PrimaryTenantId.ToString()));
+                                        var workDisplayName = !string.IsNullOrWhiteSpace(appUser.Name) ? appUser.Name : (appUser.Email ?? string.Empty);
+                                        newIdentity.AddClaim(new("work:name", workDisplayName));
+                                        if (appUser.PrimaryTenantId.HasValue)
+                                            newIdentity.AddClaim(new("work:primaryTenantId", appUser.PrimaryTenantId.Value.ToString()));
                                         newIdentity.AddClaim(new("work:isActive", appUser.IsActive.ToString()));
                                         newIdentity.AddClaim(new("work:twoFactorEnabled", appUser.TwoFactorEnabled.ToString()));
                                         if (appUser.RegistrationDate.HasValue)
@@ -200,8 +270,9 @@
                                             newIdentity.RemoveClaim(c);
                                         foreach (var c in newIdentity.FindAll(ClaimTypes.Email).ToList())
                                             newIdentity.RemoveClaim(c);
-                                        if (!string.IsNullOrWhiteSpace(appUser.Name))
-                                            newIdentity.AddClaim(new(ClaimTypes.Name, appUser.Name));
+                                        var stdName = !string.IsNullOrWhiteSpace(appUser.Name) ? appUser.Name : appUser.Email;
+                                        if (!string.IsNullOrWhiteSpace(stdName))
+                                            newIdentity.AddClaim(new(ClaimTypes.Name, stdName!));
                                         if (!string.IsNullOrWhiteSpace(appUser.Email))
                                             newIdentity.AddClaim(new(ClaimTypes.Email, appUser.Email));
 
@@ -280,13 +351,36 @@
         public int Id { get; set; }
         public string? Email { get; set; }
         public string? Name { get; set; }
-    public JsonElement PrimaryTenantId { get; set; }
+        public int? PrimaryTenantId { get; set; }
         public bool IsActive { get; set; }
         public bool TwoFactorEnabled { get; set; }
         public DateTime? RegistrationDate { get; set; }
         public Guid? RegistrationToken { get; set; }
         public List<object>? TenantAppUsers { get; set; }
-        public List<object>? CustomerAppUsers { get; set; }
+        public List<CustomerAppUserDto>? CustomerAppUsers { get; set; }
         public List<object>? TenantConnectionRequests { get; set; }
+    }
+
+    // Typed DTOs for customer assignments
+    private sealed class CustomerAppUserDto
+    {
+        public int CustomerId { get; set; }
+        public int AppUserId { get; set; }
+        public int Role { get; set; }
+        public CustomerDto? Customer { get; set; }
+    }
+
+    private sealed class CustomerDto
+    {
+        public int Id { get; set; }
+        public int TenantId { get; set; }
+        public DateTime TimeStamp { get; set; }
+        public int PartnerId { get; set; }
+        public int DepartmentId { get; set; }
+        public string? VatRegNo { get; set; }
+        public string? Name { get; set; }
+        public string? VoucherName { get; set; }
+        public string? AddressLine { get; set; }
+        public bool Inactive { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 
 
 @using System.Text.RegularExpressions;
+@using System.Linq;
 @using BlazorDemo.Showcase.Models;
 @using BlazorDemo.Showcase.Client.Components.WORK;
 @using BlazorDemo.Showcase.Services.DataProviders;
@@ -62,49 +63,73 @@
                     ColumnResizeMode="GridColumnResizeMode.NextColumn"
                     FilterMenuButtonDisplayMode="GridFilterMenuButtonDisplayMode.Always" TextWrapEnabled="false"
                     FocusedRowEnabled="true" ShowAllRows="true" VirtualScrollingEnabled="true"
-                    HighlightRowOnHover="true">
+                    HighlightRowOnHover="true"
+                    CustomizeEditModel="OnCustomizeEditModel"
+                    EditModelSaving="OnEditModelSaving">
                     <Columns>
                         <DxGridSelectionColumn Width="1.5em" />
-
-                        <DxGridDataColumn FieldName="CustomerName" Width="30%"/>
-                        <DxGridDataColumn FieldName="Status" Caption="Állapot" Width="15%">
-                            <CellDisplayTemplate>
-                                <WorkRequestStatus Value="@(context.Value as string)" />
+                        <DxGridDataColumn FieldName="Id" Caption="#Id" Width="4rem" Visible="false" />
+                        <DxGridDataColumn FieldName="Subject" Caption="Tárgy" />
+                        <DxGridDataColumn FieldName="CustomerName" Caption="Ügyfél" />
+                        <DxGridDataColumn FieldName="CreatedDate" Caption="Létrehozva" DisplayFormat="d" />
+                        <DxGridDataColumn FieldName="Status" Caption="Státusz">
+                            <CellDisplayTemplate Context="cell">
+                                <WorkRequestStatus Value="@cell.DisplayText" />
                             </CellDisplayTemplate>
                         </DxGridDataColumn>
-                        <DxGridDataColumn FieldName="Subject" Caption="Tárgy" Width="40%" />
-                        <DxGridDataColumn FieldName="CreatedDate" Width="15%" MinWidth="50" />
+
+                        <!-- Form-only fields (not shown in the list) -->
+                        <DxGridDataColumn FieldName="Description" Visible="false" />
+                        <DxGridDataColumn FieldName="PreferedWorkerName" Visible="false" />
                     </Columns>
-                    @* <EditFormTemplate Context="EditFormContext">
-                                @{
-                                    var workrequest = (WorkRequest)EditFormContext.EditModel;
-                                }
-                                <DxFormLayout CssClass="w-100">
-                                    <DxFormLayoutItem Caption="Name:" ColSpanMd="6">
-                                        @EditFormContext.GetEditor("Name")
-                                    </DxFormLayoutItem>
-                                    <DxFormLayoutItem Caption="Company:" ColSpanMd="6">
-                                        @EditFormContext.GetEditor("Company")
-                                    </DxFormLayoutItem>
-                                    <DxFormLayoutItem Caption="Position:" ColSpanMd="6">
-                                        @EditFormContext.GetEditor("Position")
-                                    </DxFormLayoutItem>
-                                    <DxFormLayoutItem Caption="Status:" ColSpanMd="6">
-                                        <DxComboBox @bind-Value="@workrequest.Status" Data="@Statuses" />
-                                    </DxFormLayoutItem>
-                                    <DxFormLayoutItem Caption="Assigned To:" ColSpanMd="6">
-                                        @EditFormContext.GetEditor("AssignedTo")
-                                    </DxFormLayoutItem>
-                                    <DxFormLayoutItem Caption="Phone:" ColSpanMd="6">
-                                        <DxMaskedInput @bind-Value="@workrequest.Phone" Mask="+1(000)000-0000" />
-                                    </DxFormLayoutItem>
-                                    <DxFormLayoutItem Caption="Email:" ColSpanMd="6">
-                                        <DxMaskedInput @bind-Value="@workrequest.Email"
-                                                       Mask="@(@"(\w|[.-])+@(\w|-)+\.(\w|-){2,4}")"
-                                                       MaskMode="MaskMode.RegEx" />
-                                    </DxFormLayoutItem>
-                                </DxFormLayout>
-                            </EditFormTemplate> *@
+                    <EditFormTemplate Context="EditFormContext">
+                        @{
+                            // Ensure the edit form uses the detail model
+                            var detail = EditFormContext.EditModel as WorkRequestDetail ?? new WorkRequestDetail();
+                        }
+                        <DxFormLayout CssClass="w-100">
+                            <DxFormLayoutItem Caption="Subject:" ColSpanMd="6">
+                                @EditFormContext.GetEditor("Subject")
+                            </DxFormLayoutItem>
+                                <DxFormLayoutItem Caption="Customer:" ColSpanMd="6">
+                                    @if (CustomerOptions is { Count: > 0 })
+                                    {
+                                        <DxComboBox TData="CustomerOption"
+                                                    TValue="int"
+                                                    Data="@GetCustomerOptionsSnapshot()"
+                                                    TextFieldName="Name"
+                                                    ValueFieldName="Id"
+                                                    @bind-Value="detail.CustomerId"
+                                                    NullText="Select customer"
+                                                    ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto" />
+                                    }
+                                    else
+                                    {
+                                        <div class="text-muted">No customers available</div>
+                                    }
+                                </DxFormLayoutItem>
+                                <DxFormLayoutItem Caption="Earliest Start:" ColSpanMd="6">
+                                    <DxDateEdit @bind-Date="detail.EarliestStartDate" />
+                                </DxFormLayoutItem>
+                                <DxFormLayoutItem Caption="Latest End:" ColSpanMd="6">
+                                    <DxDateEdit @bind-Date="detail.LatestEndDate" />
+                                </DxFormLayoutItem>
+                            <DxFormLayoutItem Caption="Description:" ColSpanMd="12">
+                                @EditFormContext.GetEditor("Description")
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem Caption="Status:" ColSpanMd="6">
+                                <DxComboBox TData="StatusOption"
+                                            TValue="int"
+                                            Data="@StatusOptions"
+                                            ValueFieldName="Id"
+                                            TextFieldName="Name"
+                                            @bind-Value="detail.StatusId" />
+                            </DxFormLayoutItem>
+                            <DxFormLayoutItem Caption="Prefered Worker Name:" ColSpanMd="6">
+                               @EditFormContext.GetEditor("PreferedWorkerName") 
+                            </DxFormLayoutItem>
+                        </DxFormLayout>
+                    </EditFormTemplate>
                 </DxGrid>
             </DxLoadingPanel>
         </div>
@@ -113,6 +138,9 @@
 @code {
     CancellationTokenSource disposalTokenSource = new CancellationTokenSource();
     WorkRequest workRequest = new WorkRequest();
+    WorkRequestDetail? editModel;
+    bool _isDisposed;
+    bool _startEditRequested;
 
     [CascadingParameter(Name = "ParentSizeMode")]
     SizeMode SizeMode { get; set; }
@@ -128,11 +156,66 @@
     string? SearchText { get; set; }
     string StatusFilterValue { get; set; } = "All";
     string[] Statuses { get; } = new[] { "Elfogadva","Bejelentve", "Törölt", "Folyamatban" };
+    record StatusOption(int Id, string Name);
+    List<StatusOption> StatusOptions { get; } = new() { new(0, "Bejelentve"), new(1, "Elfogadva"), new(2, "Törölt"), new(3, "Folyamatban") };
+
+    // App user and customer dropdown support
+    WorkRequestDataProvider.AppUserDto? CurrentUser { get; set; }
+    List<CustomerOption> CustomerOptions { get; set; } = new();
+    class CustomerOption { public int Id { get; set; } public string Name { get; set; } = string.Empty; public CustomerOption(){} public CustomerOption(int id, string name){ Id=id; Name=name; } }
 
     protected override async Task OnInitializedAsync()
     {
+        // Populate dropdown options: prefer dedicated lookup endpoint; fallback to appuser
+        var lookupCustomers = await DataProvider.GetUserCustomersAsync(disposalTokenSource.Token);
+        if (lookupCustomers is { Count: > 0 })
+        {
+            foreach (var c in lookupCustomers)
+            {
+                if (c.Id <= 0) continue;
+                var name = !string.IsNullOrWhiteSpace(c.Name) ? c.Name! : $"Customer {c.Id}";
+                if (!CustomerOptions.Any(o => o.Id == c.Id))
+                    CustomerOptions.Add(new CustomerOption(c.Id, name));
+            }
+        }
+        else
+        {
+            CurrentUser = await DataProvider.GetCurrentAppUserAsync(disposalTokenSource.Token);
+            if (CurrentUser?.CustomerAppUsers is not null)
+            {
+                foreach (var cau in CurrentUser.CustomerAppUsers)
+                {
+                    var id = cau.Customer?.Id > 0 ? cau.Customer.Id : (cau.CustomerId > 0 ? cau.CustomerId : 0);
+                    if (id <= 0) continue;
+                    var name = cau.Customer?.Name;
+                    if (string.IsNullOrWhiteSpace(name)) name = $"Customer {id}";
+                    if (!CustomerOptions.Any(o => o.Id == id))
+                        CustomerOptions.Add(new CustomerOption(id, name));
+                }
+            }
+        }
+
         await LoadGridDataAsync();
         await base.OnInitializedAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (_isDisposed)
+            return;
+        if (_startEditRequested)
+        {
+            _startEditRequested = false;
+            var localGrid = Grid;
+            if (localGrid is not null)
+            {
+                try { await localGrid.StartEditNewRowAsync(); }
+                catch { /* swallow to avoid circuit crash */ }
+                // Load options after the popup is open to avoid races during template construction
+                _ = LoadCustomerOptionsAfterOpenAsync();
+            }
+        }
+        await base.OnAfterRenderAsync(firstRender);
     }
 
     async Task LoadGridDataAsync()
@@ -183,7 +266,67 @@
         } 
     }*@
 
-    Task OnAddWorkRequestClick() => Grid!.StartEditNewRowAsync();
+    void OnAddWorkRequestClick()
+    {
+        if (_isDisposed)
+            return;
+        // Defer edit popup opening to the next render cycle
+        _startEditRequested = true;
+        _ = InvokeAsync(StateHasChanged);
+    }
+
+    async Task LoadCustomerOptionsAfterOpenAsync()
+    {
+        try
+        {
+            await EnsureCustomerOptionsAsync();
+            if (!_isDisposed)
+                await InvokeAsync(StateHasChanged);
+        }
+        catch { /* ignore transient failures */ }
+    }
+
+    async Task EnsureCustomerOptionsAsync()
+    {
+        if (_isDisposed)
+            return;
+        if (CustomerOptions is { Count: > 0 })
+            return;
+        try
+        {
+            // First try the lookup endpoint
+            var lookupCustomers = await DataProvider.GetUserCustomersAsync();
+            if (lookupCustomers is { Count: > 0 })
+            {
+                foreach (var c in lookupCustomers)
+                {
+                    if (c.Id <= 0) continue;
+                    var name = !string.IsNullOrWhiteSpace(c.Name) ? c.Name! : $"Customer {c.Id}";
+                    if (!CustomerOptions.Any(o => o.Id == c.Id))
+                        CustomerOptions.Add(new CustomerOption(c.Id, name));
+                }
+                return;
+            }
+            // Fallback to appuser parsing
+            CurrentUser ??= await DataProvider.GetCurrentAppUserAsync();
+            if (CurrentUser?.CustomerAppUsers is not null)
+            {
+                foreach (var cau in CurrentUser.CustomerAppUsers)
+                {
+                    var id = cau.Customer?.Id > 0 ? cau.Customer.Id : (cau.CustomerId > 0 ? cau.CustomerId : 0);
+                    if (id <= 0) continue;
+                    var name = cau.Customer?.Name;
+                    if (string.IsNullOrWhiteSpace(name)) name = $"Customer {id}";
+                    if (!CustomerOptions.Any(o => o.Id == id))
+                        CustomerOptions.Add(new CustomerOption(id, name));
+                }
+            }
+        // No explicit StateHasChanged here; the caller decides when to re-render
+        }
+        catch { /* ignore transient failures */ }
+    }
+
+    List<CustomerOption> GetCustomerOptionsSnapshot() => CustomerOptions.ToList();
 
     void OnColumnChooserItemClick(ToolbarItemClickEventArgs e) => Grid!.ShowColumnChooser();
 
@@ -224,6 +367,7 @@
         ActiveWorkRequest = await DataProvider.GetAsync(tenantId: workRequest.TenantId, customerId: workrequestworkRequest.CustomerId, statusId: workRequest.StatusId, createdBefore: workRequest.CreatedBefore, createdAfter: workRequest.CreatedAfter, pageNumber: 1, pageSize: 1, cancellationToken: disposalTokenSource.Token)
             .ContinueWith(t => t.Result.FirstOrDefault(), disposalTokenSource.Token);
         IsActiveWorkRequestLoading = false;
+                _isDisposed = true;
         StateHasChanged();
     }  *@
 
@@ -238,5 +382,81 @@
     {
         disposalTokenSource.Cancel();
         disposalTokenSource.Dispose();
+        _isDisposed = true;
+    }
+
+    // Grid callbacks to use detail model without bloating the list payload
+    async Task OnCustomizeEditModel(GridCustomizeEditModelEventArgs e)
+    {
+        if (e.IsNew)
+        {
+            editModel = new WorkRequestDetail
+            {
+                CreatedDate = DateTime.UtcNow,
+                TimeStamp = DateTime.UtcNow,
+                TenantId = CurrentUser?.PrimaryTenantId > 0 ? CurrentUser.PrimaryTenantId : 1,
+                RequestorId = CurrentUser?.Id ?? 0,
+                RequestorName = CurrentUser?.Name,
+                StatusId = 0
+            };
+            // Preselect the only available customer, if there is exactly one
+            if (CustomerOptions.Count == 1)
+            {
+                editModel.CustomerId = CustomerOptions[0].Id;
+                editModel.CustomerName = CustomerOptions[0].Name;
+            }
+            e.EditModel = editModel;
+            return;
+        }
+
+        var listItem = e.DataItem as WorkRequest;
+        if (listItem is null)
+            return;
+        editModel = await DataProvider.GetDetailAsync(listItem.Id, disposalTokenSource.Token);
+        e.EditModel = editModel ?? new WorkRequestDetail
+        {
+            Id = listItem.Id,
+            Subject = listItem.Subject,
+            CustomerName = listItem.CustomerName,
+            Status = listItem.Status,
+            TenantId = listItem.TenantId
+        };
+    }
+
+    async Task OnEditModelSaving(GridEditModelSavingEventArgs e)
+    {
+        var detail = e.EditModel as WorkRequestDetail;
+        if (detail is null)
+            return;
+        // Require a customer selection when creating a new request
+        if (detail.Id <= 0 && detail.CustomerId <= 0)
+        {
+            e.Cancel = true;
+            return;
+        }
+        // Fill derived/default fields
+        if (string.IsNullOrEmpty(detail.CustomerName) && detail.CustomerId > 0)
+            detail.CustomerName = CustomerOptions.FirstOrDefault(x => x.Id == detail.CustomerId)?.Name;
+        if (detail.CreatedDate == default)
+            detail.CreatedDate = DateTime.UtcNow;
+        if (detail.TimeStamp == default)
+            detail.TimeStamp = DateTime.UtcNow;
+        if (detail.TenantId <= 0)
+            detail.TenantId = CurrentUser?.PrimaryTenantId > 0 ? CurrentUser.PrimaryTenantId : 1;
+        if (detail.RequestorId <= 0)
+            detail.RequestorId = CurrentUser?.Id ?? 0;
+        if (string.IsNullOrEmpty(detail.RequestorName))
+            detail.RequestorName = CurrentUser?.Name;
+        bool ok = detail.Id > 0
+            ? await DataProvider.UpdateAsync(detail, disposalTokenSource.Token)
+            : await DataProvider.CreateAsync(detail, disposalTokenSource.Token);
+
+        if (!ok)
+            e.Cancel = true;
+        else
+        {
+            // Refresh lightweight list after save
+            await LoadGridDataAsync();
+        }
     }
 }
