@@ -61,11 +61,12 @@ namespace BlazorDemo.Showcase.Services.DataProviders {
             var queryString = query.Count > 0 ? "?" + string.Join("&", query) : string.Empty;
            // var url = $"{GetBasePath()}{queryString}";
 
-            var result = await WLoadDataAsync<PagedResponse<WorkRequest>?>(
+            var data = await WLoadDataPropertyAsync<List<WorkRequest>>(
                 ["/api/v1/WorkRequest", queryString],
-                cancellationToken: cancellationToken);
-            
-            return result?.Data;
+                cancellationToken: cancellationToken,
+                propertyName: "data");
+
+            return data;
 
         }
 

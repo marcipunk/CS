@@ -25,6 +25,7 @@ builder.Services.AddScoped<IdentityRedirectManager>();
 builder.Services.AddScoped<AuthenticationStateProvider, PersistingServerAuthenticationStateProvider>();
 builder.Services.AddScoped<CookieEvents>();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddMemoryCache();
 builder.Services.ConfigureApplicationCookie(o =>
 {
     o.EventsType = typeof(CookieEvents);
@@ -57,6 +58,25 @@ builder.Services.AddHttpClient("WorkApi", client =>
 }).AddHttpMessageHandler<BlazorDemo.Showcase.Services.WorkApiAuthHandler>();
 
 builder.WebHost.UseStaticWebAssets();
+
+// Ensure HTTPS is available when running without a launch profile or env URLs
+builder.WebHost.ConfigureKestrel(options =>
+{
+    // If ASPNETCORE_URLS is not set, bind to localhost:5000 (http) and 5001 (https)
+    var urls = Environment.GetEnvironmentVariable("ASPNETCORE_URLS");
+    if (string.IsNullOrWhiteSpace(urls))
+    {
+        options.ListenLocalhost(5000); // HTTP
+        try
+        {
+            options.ListenLocalhost(5001, lo => lo.UseHttps()); // HTTPS for Secure cookies
+        }
+        catch
+        {
+            // Dev machine may miss a dev cert; HTTP redirection will no-op
+        }
+    }
+});
 
 var app = builder.Build();
 

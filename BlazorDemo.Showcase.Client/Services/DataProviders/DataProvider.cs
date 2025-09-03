@@ -111,52 +111,94 @@ namespace BlazorDemo.Showcase.Services.DataProviders {
 
         private async Task<T?> SendAndReadAsync<T>(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            using var response = await _httpClient.SendAsync(request, cancellationToken);
-            if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            // Up to 3 attempts on 401 with brief backoff to bridge post-login races
+            var attempts = 0;
+            var delays = new[] { 150, 350 }; // ms; third attempt has no extra delay before send
+            HttpResponseMessage? response = null;
+            try
             {
-                // If the token cookie was just issued, a brief retry can resolve race conditions.
-                try { await Task.Delay(200, cancellationToken); } catch { }
-                using var retry = new HttpRequestMessage(request.Method, request.RequestUri);
-                using var retryResponse = await _httpClient.SendAsync(retry, cancellationToken);
-                retryResponse.EnsureSuccessStatusCode();
-                return await retryResponse.Content.ReadFromJsonAsync<T>(cancellationToken: cancellationToken);
+                while (true)
+                {
+                    response = await _httpClient.SendAsync(request, cancellationToken);
+                    if (response.StatusCode != System.Net.HttpStatusCode.Unauthorized)
+                        break;
+
+                    if (attempts >= 2)
+                        break;
+
+                    // dispose and retry with a fresh request instance
+                    response.Dispose();
+                    var delayMs = delays[attempts];
+                    attempts++;
+                    try { await Task.Delay(delayMs, cancellationToken); } catch { }
+                    request = new HttpRequestMessage(request.Method, request.RequestUri);
+                }
+
+                // Return default for any non-success (including 401) to avoid circuit crashes
+                if (!response.IsSuccessStatusCode)
+                    return default;
+
+                return await response.Content.ReadFromJsonAsync<T>(cancellationToken: cancellationToken);
             }
-            response.EnsureSuccessStatusCode();
-            return await response.Content.ReadFromJsonAsync<T>(cancellationToken: cancellationToken);
+            finally
+            {
+                response?.Dispose();
+            }
         }
 
         // Helper: read only a specific top-level property and deserialize that section to T
         private async Task<T?> SendAndReadPropertyAsync<T>(HttpRequestMessage request, string propertyName, CancellationToken cancellationToken)
         {
-            using var response = await _httpClient.SendAsync(request, cancellationToken);
-            if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            // Up to 3 attempts on 401 with brief backoff
+            var attempts = 0;
+            var delays = new[] { 150, 350 }; // ms
+            HttpResponseMessage? response = null;
+            try
             {
-                try { await Task.Delay(200, cancellationToken); } catch { }
-                using var retry = new HttpRequestMessage(request.Method, request.RequestUri);
-                using var retryResponse = await _httpClient.SendAsync(retry, cancellationToken);
-                retryResponse.EnsureSuccessStatusCode();
-                await using var retryStream = await retryResponse.Content.ReadAsStreamAsync(cancellationToken);
-                using var retryDoc = await JsonDocument.ParseAsync(retryStream, cancellationToken: cancellationToken);
-                if (retryDoc.RootElement.ValueKind != JsonValueKind.Object)
+                while (true)
+                {
+                    response = await _httpClient.SendAsync(request, cancellationToken);
+                    if (response.StatusCode != System.Net.HttpStatusCode.Unauthorized)
+                        break;
+
+                    if (attempts >= 2)
+                        break;
+
+                    response.Dispose();
+                    var delayMs = delays[attempts];
+                    attempts++;
+                    try { await Task.Delay(delayMs, cancellationToken); } catch { }
+                    request = new HttpRequestMessage(request.Method, request.RequestUri);
+                }
+
+                if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    // Return default instead of throwing to keep UI responsive
                     return default;
-                if (!retryDoc.RootElement.TryGetProperty(propertyName, out var retryElement) || retryElement.ValueKind == JsonValueKind.Undefined || retryElement.ValueKind == JsonValueKind.Null)
+                }
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    // Non-success — return default to avoid circuit crashes during transient issues
                     return default;
-                var retryOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web);
-                return retryElement.Deserialize<T>(retryOptions);
+                }
+
+                await using var stream = await response.Content.ReadAsStreamAsync(cancellationToken);
+                using var doc = await JsonDocument.ParseAsync(stream, cancellationToken: cancellationToken);
+
+                if (doc.RootElement.ValueKind != JsonValueKind.Object)
+                    return default;
+
+                if (!doc.RootElement.TryGetProperty(propertyName, out var element) || element.ValueKind == JsonValueKind.Undefined || element.ValueKind == JsonValueKind.Null)
+                    return default;
+
+                var options = new JsonSerializerOptions(JsonSerializerDefaults.Web);
+                return element.Deserialize<T>(options);
             }
-            response.EnsureSuccessStatusCode();
-
-            await using var stream = await response.Content.ReadAsStreamAsync(cancellationToken);
-            using var doc = await JsonDocument.ParseAsync(stream, cancellationToken: cancellationToken);
-
-            if (doc.RootElement.ValueKind != JsonValueKind.Object)
-                return default;
-
-            if (!doc.RootElement.TryGetProperty(propertyName, out var element) || element.ValueKind == JsonValueKind.Undefined || element.ValueKind == JsonValueKind.Null)
-                return default;
-
-            var options = new JsonSerializerOptions(JsonSerializerDefaults.Web);
-            return element.Deserialize<T>(options);
+            finally
+            {
+                response?.Dispose();
+            }
         }
     }
 }

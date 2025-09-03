@@ -54,8 +54,7 @@
     </div>
    
 
-    <TargetContent>
-        <div class="h-100">
+    <div class="h-100">
             <DxLoadingPanel Visible="@(!IsDataLoaded)" IsContentBlocked="true" IsContentVisible="false"
                 IndicatorVisible="true" IndicatorAreaVisible="true" ZIndex="101" Text="Loading...">
                 <DxGrid @ref="Grid" Data="Data" CssClass="workrequest-list" SearchText="@SearchText"
@@ -110,7 +109,6 @@
             </DxLoadingPanel>
         </div>
 
-    </TargetContent>
 </div>
 @code {
     CancellationTokenSource disposalTokenSource = new CancellationTokenSource();
@@ -140,7 +138,7 @@
     async Task LoadGridDataAsync()
     {
         IsDataLoaded = false;
-        Data = await DataProvider.GetAsync(
+    var result = await DataProvider.GetAsync(
         tenantId: 1,
         customerId: 30,
         statusId: 0,
@@ -150,6 +148,7 @@
         pageSize: 100, // changed from 1 to 100
         cancellationToken: disposalTokenSource.Token
         );
+    Data = result ?? new List<WorkRequest>();
         IsDataLoaded = true;
     }
 

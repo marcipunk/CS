@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Microsoft.AspNetCore.Routing {
     internal static class IdentityComponentsEndpointRouteBuilderExtensions {
@@ -42,12 +43,17 @@ namespace Microsoft.AspNetCore.Routing {
                 HttpContext context,
                 ClaimsPrincipal user,
                 SignInManager<ApplicationUser> signInManager,
+                [FromServices] IMemoryCache memoryCache,
                 [FromQuery(Name = "ReturnUrl")] string returnUrl
             ) => {
                 // Sign out of Identity
                 await signInManager.SignOutAsync();
                 // Clear external WORK API token cookie
                 context.Response.Cookies.Delete("work_token", new CookieOptions { Path = "/", HttpOnly = true, Secure = true, SameSite = SameSiteMode.Lax });
+                // Evict any short-lived cached token too
+                var uid = user.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (!string.IsNullOrEmpty(uid))
+                    memoryCache.Remove($"work_token:{uid}");
                 // Redirect to Login, optionally preserving ReturnUrl for after re-login
                 var target = string.IsNullOrEmpty(returnUrl)
                     ? "~/Account/Login"
